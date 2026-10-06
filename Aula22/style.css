@@ -1,0 +1,21 @@
+p {
+    margin: 10px;
+    padding: 10px;
+    border: 10px;
+    background-color: aquamarine;
+    
+}
+body{
+    margin: 10px;
+    padding: 10px;
+    border: 10px;
+    
+    background-color: chartreuse;
+}
+#divnumero{
+    margin: 10px;
+    padding: 10px;
+    border: 10px;
+    
+    background-color: brown;
+}

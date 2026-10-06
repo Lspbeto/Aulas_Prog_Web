@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudo sobre a Tag Header em HTML</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Exemplo visual de um header estilizado */
+        .site-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+        }
+
+        .site-header nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        section {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h1, h2 {
+            color: var(--dark);
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d97706;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Exemplo prático da tag <header> em uso -->
+    <header class="site-header">
+        <div class="logo"><strong>MeuSite.com</strong></div>
+        <nav>
+            <a href="#o-que-e">O que é</a>
+            <a href="#caracteristicas">Características</a>
+            <a href="#exemplo">Código</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="o-que-e">
+            <h1>O que é a Tag <code>&lt;header&gt;</code>?</h1>
+            <p>A tag <code>&lt;header&gt;</code> é um elemento semântico introduzido no HTML5. Ela é utilizada para representar um grupo de conteúdos introdutórios ou de navegação, geralmente posicionada no topo de uma página ou de uma seção específica.</p>
+        </section>
+
+        <section id="caracteristicas">
+            <h2>Principais Características</h2>
+            <ul>
+                <li><strong>Não é restrita ao topo do site:</strong> Embora seja comum usá-la no início da página inteira, você pode colocar um <code>&lt;header&gt;</code> dentro de artigos (<code>&lt;article&gt;</code>) ou seções (<code>&lt;section&gt;</code>).</li>
+                <li><strong>Conteúdo típico:</strong> Costuma abrigar logotipos, títulos principais (<code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code>), menus de navegação (<code>&lt;nav&gt;</code>), formulários de busca ou dados de autoria.</li>
+                <li><strong>Múltiplos usos:</strong> Uma página web pode conter vários elementos <code>&lt;header&gt;</code>, desde que cada um pertença a contextos diferentes.</li>
+                <li><strong>Acessibilidade e SEO:</strong> Ajuda leitores de tela e robôs de busca (como o Google) a entenderem rapidamente a estrutura hierárquica do conteúdo.</li>
+            </ul>
+        </section>
+
+        <section id="exemplo">
+            <h2>Exemplo de Código</h2>
+            <p>Veja abaixo como estruturar um cabeçalho básico utilizando HTML semântico:</p>
+            <pre><code>&lt;header&gt;
+    &lt;img src="logo.png" alt="Logotipo da Empresa"&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Início&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Contato&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+        </section>
+    </main>
+
+          <main>
+         <a href="index.html" > Pagina inicial </a>
+        </main>
+    </body>
+</html>

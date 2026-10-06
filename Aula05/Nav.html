@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudo sobre a Tag Nav em HTML</title>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .site-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Exemplo visual de uma nav estilizada */
+        .site-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .site-nav li {
+            margin-left: 1.5rem;
+        }
+
+        .site-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .site-nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        section {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h1, h2 {
+            color: var(--dark);
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #0d9488;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        ul.features {
+            padding-left: 1.5rem;
+        }
+
+        ul.features li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo"><strong>HTML Guide</strong></div>
+        <nav class="site-nav" aria-label="Navegação Principal do Topo">
+            <ul>
+                <li><a href="#o-que-e">O que é</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#exemplo">Código</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="o-que-e">
+            <h1>O que é a Tag <code>&lt;nav&gt;</code>?</h1>
+            <p>A tag <code>&lt;nav&gt;</code> é um elemento semântico do HTML5 projetado especificamente para agrupar blocos de links de navegação. Seja para o menu principal do site, um sumário, índices ou links de paginação, ela indica que o conteúdo ali dentro tem a função de guiar o usuário.</p>
+        </section>
+
+        <section id="caracteristicas">
+            <h2>Principais Características</h2>
+            <ul class="features">
+                <li><strong>Foco em Links Importantes:</strong> Não deve ser usada para agrupar qualquer lista de links genéricos (como rodapés com dezenas de links de parceiros); serve prioritariamente para a navegação principal.</li>
+                <li><strong>Acessibilidade (Screen Readers):</strong> Tecnologias assistivas usam a tag <code>&lt;nav&gt;</code> para permitir que usuários com deficiência visual pulem direto para os menus de navegação sem precisar ouvir o site inteiro.</li>
+                <li><strong>Uso com atributos ARIA:</strong> Quando há mais de um elemento <code>&lt;nav&gt;</code> na página, é altamente recomendado usar o atributo <code>aria-label</code> para diferenciá-los (ex: <code>aria-label="Menu Principal"</code>).</li>
+                <li><strong>Flexibilidade de Posicionamento:</strong> Pode aparecer dentro de um <code>&lt;header&gt;</code>, sozinha no corpo da página, ou até mesmo dentro de um rodapé (<code>&lt;footer&gt;</code>).</li>
+            </ul>
+        </section>
+
+        <section id="exemplo">
+            <h2>Exemplo de Código</h2>
+            <p>Veja abaixo a estrutura padrão recomendada para uma barra de navegação:</p>
+            <pre><code>&lt;nav aria-label="Navegação Principal"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="produtos.html"&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="contato.html"&gt;Contato&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </section>
+    </main>
+
+         <main>
+         <a href="index.html" > Pagina inicial </a>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+body{
+    background-color: aquamarine;
+    text-align: center;
+    justify-items: center;
+}
+.conteiner{
+    margin: 1%;
+    padding: 1%;
+    border: 2%;
+    border-radius: 10%;
+    background-color: bisque;
+    display: flex;
+    flex-direction:  column;
+    width: 30%;
+    border-radius: 10%;
+
+    input {
+        margin: 1%;
+ 
+    }
+     p  {
+        margin: 5%;
+    }
+    button {
+        margin: 5%;
+    }
+}

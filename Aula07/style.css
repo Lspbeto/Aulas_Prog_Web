@@ -1,0 +1,17 @@
+body{
+    background-color: gold;
+}
+.cabecalho p {
+    background-color: blue;
+
+}
+.conteudo{
+   background-color: aquamarine;
+}
+.rodape{
+ background-color: brown;
+}
+h1{
+    font-size: auto;
+    
+}

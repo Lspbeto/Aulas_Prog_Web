@@ -1,0 +1,15 @@
+body{
+     text-align: center;
+     background-color: aqua;
+}
+p{
+    display: flex;
+    justify-content: center;
+}
+img{
+    justify-items: center;
+    width: 500px;
+    height: 500px;
+    
+}
+

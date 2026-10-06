@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Controle de produtos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+<!-- TELA DE LOGIN / CADASTRO -->
+<section id="telaAuth" class="auth card">
+  <h1 id="authTitulo">Entrar</h1>
+  <p class="sub" id="authSub">Use seu usuário e senha.</p>
+  <label for="aUser">Usuário</label>
+  <input id="aUser" autocomplete="username">
+  <label for="aPass">Senha</label>
+  <input id="aPass" type="password" autocomplete="current-password">
+  <div id="boxConfirma" class="hidden">
+    <label for="aPass2">Confirmar senha</label>
+    <input id="aPass2" type="password" autocomplete="new-password">
+  </div>
+  <p class="msg" id="authMsg" role="alert"></p>
+  <div class="row" style="margin-top:6px">
+    <button id="btnAuth">Entrar</button>
+    <button class="link" id="btnTroca" type="button">Criar uma conta</button>
+  </div>
+</section>
+
+<!-- TELA DO SISTEMA -->
+<section id="telaApp" class="hidden">
+  <div class="top">
+    <div>
+      <h1>Controle de produtos</h1>
+      <div class="sub" style="margin:0">Logado como <strong id="nomeLogado"></strong></div>
+    </div>
+    <button class="sec" id="btnSair">Sair</button>
+  </div>
+
+  <div class="card">
+    <h2>Cadastrar produto</h2>
+    <div class="row">
+      <div style="flex-basis:220px"><label for="pNome">Nome</label><input id="pNome"></div>
+      <div><label for="pPreco">Preço (R$)</label><input id="pPreco" type="number" min="0" step="0.01"></div>
+      <div><label for="pQtd">Quantidade</label><input id="pQtd" type="number" min="0" step="1"></div>
+      <div style="flex:0 0 auto"><button id="btnProduto">Adicionar</button></div>
+    </div>
+    <p class="msg" id="prodMsg" role="alert"></p>
+  </div>
+
+  <div class="card">
+    <h2>Produtos</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Nome</th><th class="n">Preço</th><th class="n">Qtd</th><th></th></tr></thead>
+      <tbody id="listaProdutos"></tbody>
+    </table></div>
+    <div class="vazio hidden" id="vazioProd">Nenhum produto cadastrado ainda.</div>
+  </div>
+
+  <div class="card">
+    <h2>Cadastrar usuário</h2>
+    <div class="row">
+      <div><label for="uNome">Usuário</label><input id="uNome" autocomplete="off"></div>
+      <div><label for="uSenha">Senha</label><input id="uSenha" type="password" autocomplete="new-password"></div>
+      <div style="flex:0 0 auto"><button id="btnUsuario">Cadastrar</button></div>
+    </div>
+    <p class="msg" id="userMsg" role="alert"></p>
+    <div class="scroll"><table>
+      <thead><tr><th>Usuários cadastrados</th><th></th></tr></thead>
+      <tbody id="listaUsuarios"></tbody>
+    </table></div>
+  </div>
+</section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>

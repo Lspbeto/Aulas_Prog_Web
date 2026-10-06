@@ -1,0 +1,26 @@
+body{
+background-color:aquamarine;    
+align-items: center;
+}
+header h1{
+    margin: 0;
+    color: white;
+  
+
+}
+nav{
+    margin-top: 10px;
+    
+}
+nav ul{
+    list-style-position: none;
+    padding: 0%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+
+}
+nav a{
+    color: white;
+    text-decoration: none;
+}

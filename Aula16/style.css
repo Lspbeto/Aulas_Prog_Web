@@ -1,0 +1,10 @@
+.botao-clicado{
+    background-color: black;
+    color: blueviolet;
+    border: red;
+}
+.escuro{
+    background-color: rgb(10, 34, 35);
+    color: aliceblue;
+    text-align: center;
+}

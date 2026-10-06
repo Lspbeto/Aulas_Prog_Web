@@ -1,0 +1,113 @@
+/* Configurações Gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color:  #a6f2eb;
+    color: #80644f;
+    text-align: center;
+}
+
+/* Cabeçalho e Menu */
+header {
+    background-color: #ffb3c6;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Limitação de Largura da Página */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Blocos de Conteúdo (Sobre e Contato) */
+.sobre, .contato {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.contato{
+    margin-top: 3vh;
+}
+
+/* Alinhamento dos Cards com Flexbox */
+.grid-sabores {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Cada Card individual */
+.card-sabor {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+}
+
+.card-sabor h3 {
+    color: #ff5c8a;
+}
+.form-group{
+    max-width: 35vw;
+    margin: 1vh auto;
+       form {
+       display: flex;flex-direction: column;
+       gap: 5px;
+            }
+       input, textarea {
+        padding: 10px;
+        border: 1px solid blueviolet;
+        border-radius: 5px;
+        &:focus,&:focus{
+            border-color: black;
+            outline: none;
+            }
+
+       }
+       button{
+        padding: 10px;
+        background-color: aqua;
+        color: azure;
+        border: none;
+        border-radius: 4px;
+        &:hover{
+            background-color: #ff5c8a;
+               }
+
+       }     
+}
+
+/* Rodapé */
+footer {
+    background-color:  #80644f;
+    color: white;
+    padding: 15px;
+    margin-top: 50px;
+}

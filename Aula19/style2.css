@@ -1,0 +1,44 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    background-color: aqua;
+    color: aliceblue;
+}
+
+h2 {
+    color: black;
+}
+
+p {
+    color: blue;
+}
+
+h1 {
+    margin: 10px auto 10px 10px;
+    border-radius: 10px;
+
+
+}
+
+header {
+    background-color: cadetblue;
+    display: flex;
+    align-items: center;
+
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+    border: 2px;
+    border-radius: 10px;
+    text-align: left;
+    background-color: darkseagreen;
+    width: 1200px;
+}
+
+#btnsair {
+    height: 20px;
+    width: 60px;
+}

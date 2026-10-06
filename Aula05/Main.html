@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudo sobre a Tag Main em HTML</title>
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .site-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .site-nav li {
+            margin-left: 1.5rem;
+        }
+
+        .site-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .site-nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        section {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h1, h2 {
+            color: var(--dark);
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #7c3aed;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        ul.features {
+            padding-left: 1.5rem;
+        }
+
+        ul.features li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo"><strong>HTML Guide</strong></div>
+        <nav class="site-nav" aria-label="Navegação Principal">
+            <ul>
+                <li><a href="#o-que-e">O que é</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#exemplo">Código</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="o-que-e">
+            <h1>O que é a Tag <code>&lt;main&gt;</code>?</h1>
+            <p>A tag <code>&lt;main&gt;</code> é um elemento semântico do HTML5 que especifica o conteúdo principal do corpo de um documento. Ela deve conter o conteúdo que é central para o tópico da página ou que expande diretamente a funcionalidade central dela.</p>
+        </section>
+
+        <section id="caracteristicas">
+            <h2>Principais Características</h2>
+            <ul class="features">
+                <li><strong>Conteúdo Único:</strong> Deve haver apenas um elemento <code>&lt;main&gt;</code> visível por página. Ele não deve conter conteúdo que se repete em várias páginas (como menus de navegação globais, logotipos ou rodapés).</li>
+                <li><strong>Exclusão de Elementos Globais:</strong> Itens como barras laterais de links (sidebar), formulários de busca recorrentes ou cabeçalhos principais do site geralmente ficam fora do <code>&lt;main&gt;</code>.</li>
+                <li><strong>Impacto em Acessibilidade:</strong> Auxilia leitores de tela a localizarem rapidamente o miolo informativo do site, permitindo que o usuário ignore seções repetitivas.</li>
+                <li><strong>Regras de Aninhamento:</strong> Não pode ser descendente de elementos como <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;header&gt;</code> ou <code>&lt;nav&gt;</code>.</li>
+            </ul>
+        </section>
+
+        <section id="exemplo">
+            <h2>Exemplo de Código</h2>
+            <p>Veja como o elemento se integra na estrutura de uma página web comum:</p>
+            <pre><code>&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Meu Blog&lt;/h1&gt;
+        &lt;nav&gt;...&lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;h2&gt;Entendendo o HTML Semântico&lt;/h2&gt;
+            &lt;p&gt;O uso correto de tags melhora o SEO e a acessibilidade...&lt;/p&gt;
+        &lt;/article&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2026 Meu Blog&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+        </section>
+    </main>
+         <main>
+         <a href="index.html" > Pagina inicial </a>
+        </main>
+    </body>
+</html>

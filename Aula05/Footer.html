@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tudo sobre a Tag Footer em HTML</title>
+    <style>
+        :root {
+            --primary: #0284c7;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .site-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .site-nav li {
+            margin-left: 1.5rem;
+        }
+
+        .site-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .site-nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        section {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h1, h2 {
+            color: var(--dark);
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #0284c7;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        ul.features {
+            padding-left: 1.5rem;
+        }
+
+        ul.features li {
+            margin-bottom: 0.5rem;
+        }
+
+        .site-footer {
+            background-color: var(--dark);
+            color: #94a3b8;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="logo"><strong>HTML Guide</strong></div>
+        <nav class="site-nav" aria-label="Navegação Principal">
+            <ul>
+                <li><a href="#o-que-e">O que é</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#exemplo">Código</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="o-que-e">
+            <h1>O que é a Tag <code>&lt;footer&gt;</code>?</h1>
+            <p>A tag <code>&lt;footer&gt;</code> é um elemento semântico do HTML5 que representa o rodapé de seu ancestral de seção mais próximo ou do documento como um todo. Geralmente posicionada na parte inferior de uma página ou artigo, ela abriga informações complementares sobre o conteúdo.</p>
+        </section>
+
+        <section id="caracteristicas">
+            <h2>Principais Características</h2>
+            <ul class="features">
+                <li><strong>Conteúdo Típico:</strong> Costuma conter avisos de direitos autorais (copyright), links para termos de uso, políticas de privacidade, dados de contato, mapas do site simplificados e ícones de redes sociais.</li>
+                <li><strong>Múltiplos Rodapés:</strong> Assim como o <code>&lt;header&gt;</code>, você pode usar vários elementos <code>&lt;footer&gt;</code> na mesma página, desde que cada um esteja associado a uma seção específica (como o rodapé de um <code>&lt;article&gt;</code>).</li>
+                <li><strong>Não Restrito ao Fim da Página:</strong> Embora o uso mais comum seja no final absoluto da página web, sua definição semântica se baseia no escopo da seção onde ele está inserido.</li>
+                <li><strong>Acessibilidade:</strong> Ajuda leitores de tela a identificarem seções de encerramento e informações de rodapé de forma clara.</li>
+            </ul>
+        </section>
+
+        <section id="exemplo">
+            <h2>Exemplo de Código</h2>
+            <p>Veja um exemplo clássico de estrutura de rodapé com links e direitos autorais:</p>
+            <pre><code>&lt;footer&gt;
+    &lt;div&gt;
+        &lt;p&gt;&amp;copy; 2026 Empresa Exemplo. Todos os direitos reservados.&lt;/p&gt;
+        &lt;nav aria-label="Navegação do Rodapé"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="privacidade.html"&gt;Política de Privacidade&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="termos.html"&gt;Termos de Uso&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/div&gt;
+&lt;/footer&gt;</code></pre>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Página de estudos sobre HTML Semântico &bull; Criada com fins educacionais</p>
+    </footer>
+    <main>
+         <a href="index.html" > Pagina inicial </a>
+        </main>
+    </body>
+</html>

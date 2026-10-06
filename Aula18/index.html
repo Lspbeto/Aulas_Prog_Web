@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="corpo">
+     <h2>Login</h2>
+
+     <p>Entre na sua conta</p>
+     
+    <form onsubmit="return validarLogin()" id="formlog" >
+        <div id="caixa1">      
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" required>
+        
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" required>
+        
+        <button type="submit">Entrar</button>
+       </div>
+    </form>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

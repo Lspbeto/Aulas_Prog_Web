@@ -1,0 +1,201 @@
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: Arial, sans-serif; 
+}
+
+body { 
+  background-color: #f0f2f5; 
+  color: #1c1e21; 
+  display: flex; 
+  justify-content: center; 
+  padding: 20px; 
+}
+
+.container { 
+  width: 100%; 
+  max-width: 600px; 
+}
+
+/* Telas e Cards */
+.card { 
+  background: white; 
+  border-radius: 8px; 
+  padding: 20px; 
+  margin-bottom: 20px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+
+.hidden { 
+  display: none !important; 
+}
+
+/* Formulários e Botões */
+input[type="text"], input[type="password"], textarea, button { 
+  width: 100%; 
+  padding: 10px; 
+  margin-top: 10px; 
+  border-radius: 6px; 
+  border: 1px solid #ccc; 
+  font-size: 14px; 
+}
+
+button { 
+  background-color: #1877f2; 
+  color: white; 
+  font-weight: bold; 
+  border: none; 
+  cursor: pointer; 
+}
+
+button:hover { 
+  background-color: #166fe5; 
+}
+
+.btn-danger { 
+  background-color: #dc3545; 
+}
+
+.btn-danger:hover { 
+  background-color: #bd2130; 
+}
+
+/* Botão de Upload Customizado */
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #e4e6eb;
+  color: #050505;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.file-label:hover {
+  background-color: #d8dadf;
+}
+
+/* Preview & Imagem do Post */
+#image-preview-container {
+  margin-top: 10px;
+}
+
+#image-preview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 6px;
+  object-fit: cover;
+  display: block;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+/* Botão Estilo Link */
+.auth-toggle {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #1877f2;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 5px;
+  width: auto;
+  display: inline;
+}
+
+.btn-link:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+/* Feed & Posts */
+.header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 20px; 
+}
+
+.post { 
+  background: white; 
+  border-radius: 8px; 
+  padding: 15px; 
+  margin-bottom: 15px; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+}
+
+.post-header { 
+  font-weight: bold; 
+  margin-bottom: 8px; 
+  color: #1877f2; 
+  display: flex; 
+  justify-content: space-between; 
+}
+
+.post-time { 
+  font-size: 12px; 
+  color: #777; 
+  font-weight: normal; 
+}
+
+.post-content { 
+  margin-bottom: 12px; 
+  line-height: 1.4; 
+}
+
+.post-actions { 
+  display: flex; 
+  gap: 10px; 
+  border-top: 1px solid #eee; 
+  padding-top: 10px; 
+}
+
+.btn-like { 
+  background: #e4e6eb; 
+  color: #050505; 
+  flex: 1; 
+}
+
+.btn-like.liked { 
+  background: #e7f3ff; 
+  color: #1877f2; 
+}
+
+/* Comentários */
+.comments-section { 
+  margin-top: 10px; 
+  border-top: 1px solid #eee; 
+  padding-top: 10px; 
+}
+
+.comment { 
+  background: #f0f2f5; 
+  padding: 8px 12px; 
+  border-radius: 12px; 
+  margin-top: 6px; 
+  font-size: 13px; 
+}
+
+.comment-user { 
+  font-weight: bold; 
+  margin-right: 5px; 
+}

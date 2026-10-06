@@ -1,0 +1,76 @@
+body{
+    background-color:aquamarine ;
+    color: rgb(10, 10, 10);
+    margin: 0 auto;
+    padding: 0;
+    
+
+}
+
+header{
+    background-color: lightpink;
+    color: black;
+    
+    
+
+
+}
+header h1{
+    text-align: center;
+    margin: 0 ;
+}
+
+
+
+
+.cabecalho ul {
+    display: flex;
+    gap: 20%;
+    margin: auto;
+    padding: 0px 500px 0px 800px ;
+    
+    
+
+}
+
+.card-sabor{
+ background-color:white;
+ color: black;
+ border-radius: 12px;
+ padding: 50px ;
+ margin: 50px;
+}
+
+.grid-sabores{
+    display: flex;
+    gap: 40px;
+}
+
+.sobre{
+ background-color:white;
+ color: black;
+ border-radius: 12px;
+ padding: 50px ;
+ margin: 50px;
+    
+
+}
+.rodape{
+    background-color: burlywood;
+    color: black;
+    padding: 12px;
+    margin: 0;
+}
+.contato{
+    background-color: white;
+    color: black;
+    border-radius: 12px ;
+    justify-items:center ;
+    margin: 10px  300px 0px 300px;
+    
+        
+}
+div{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}

@@ -1,0 +1,65 @@
+body{
+    border: 2px outset #b87f86;
+    background-color: rgb(162, 154, 106);
+
+}
+.cabecalho p {
+    background-color: aqua(206, 206, 216);
+    border: 1px outset #a7999f42;
+
+}
+.conteudo{
+   background-color: aquamarine;
+   border: 1px outset #c3b7b8;
+   border-radius: 400%;
+
+}
+.rodape{
+    border: 1px outset currentColor;
+    background-color: rgb(139, 120, 120);
+    border-radius: 300%;
+}
+h1{
+    font-size: auto;
+    border: 1px outset burlywood;
+    border-radius: 300%;
+    
+}
+div{
+    background-color: aqua;
+    margin: 0;
+    padding: 15;
+    border: 1px outset black;
+    width: 1000px;
+    display: inline-block;
+    
+}
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: justify;
+    text-decoration: none;
+    line-height: 1.5;
+    color: blueviolet;
+    border: 1px outset #f55467;
+    display: flex;
+
+}
+header{
+    background-color: #c5a2a6;
+    padding: 15px;
+    border: 5px outset beige;
+    
+}
+img{
+     width: 150px; height: 100px;
+     display: inline; 
+}
+.cat1{
+    display: flex;
+    background-color: #c5a2a6;
+    padding: 1px;
+
+}

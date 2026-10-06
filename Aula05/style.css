@@ -1,0 +1,35 @@
+  /* Estilo geral da barra de navegação */
+    .menu-navegacao {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #1e293b;
+        padding: 1rem 2rem;
+    }
+
+    /* Diminui e ajusta a imagem da logo */
+    .img {
+        width: 8px; /* Altere aqui para o tamanho desejado */
+        height: auto;
+        display: block;
+    }
+
+    /* Estiliza a lista de links */
+    .menu-lista {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-lista a {
+        color: white;
+        text-decoration: none;
+        font-family: system-ui, sans-serif;
+        font-weight: 500;
+    }
+
+    .menu-lista a:hover {
+        text-decoration: underline;
+    }
