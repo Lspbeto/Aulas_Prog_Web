@@ -1,0 +1,124 @@
+htmlOcultar detalhesOcultar detalhes<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório em PDF</title>
+    
+    <!-- Biblioteca html2pdf.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.12.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .relatorio { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 30px; 
+            border: 1px solid #ccc; 
+            background: #fff; 
+        }
+        .cabecalho { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #2c3e50; padding-bottom: 15px; }
+        .tabela { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .tabela th, .tabela td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .tabela th { background-color: #2c3e50; color: white; }
+        .rodape { margin-top: 50px; text-align: right; font-size: 12px; color: #666; }
+        .botoes { text-align: center; margin: 20px; }
+        button { 
+            padding: 12px 25px; 
+            margin: 0 10px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 5px; 
+            background: #27ae60; 
+            color: white; 
+        }
+        button:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <div class="botoes">
+        <button onclick="baixarPDF()">📄 Baixar PDF</button>
+        <button onclick="imprimir()">🖨️ Imprimir</button>
+    </div>
+
+    <!-- Área do relatório que será convertida -->
+    <div id="area-relatorio" class="relatorio">
+        <div class="cabecalho">
+            <h2>RELATÓRIO DE VENDAS</h2>
+            <p>Empresa Exemplo LTDA</p>
+            <p>Data de emissão: <span id="data-atual"></span></p>
+        </div>
+
+        <p>Prezado(a), segue abaixo o resumo das vendas do período:</p>
+
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor Unitário</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Notebook</td>
+                    <td>5</td>
+                    <td>R$ 3.500,00</td>
+                    <td>R$ 17.500,00</td>
+                </tr>
+                <tr>
+                    <td>Monitor</td>
+                    <td>12</td>
+                    <td>R$ 800,00</td>
+                    <td>R$ 9.600,00</td>
+                </tr>
+                <tr>
+                    <td>Teclado</td>
+                    <td>30</td>
+                    <td>R$ 50,00</td>
+                    <td>R$ 1.500,00</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: right; font-weight: bold;">VALOR TOTAL</td>
+                    <td style="font-weight: bold;">R$ 28.600,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top: 30px;">Atenciosamente,<br>Departamento Comercial</p>
+
+        <div class="rodape">
+            Página 1 de 1 — Relatório gerado automaticamente
+        </div>
+    </div>
+
+<script>
+    // Insere a data atual
+    document.getElementById('data-atual').textContent = new Date().toLocaleDateString('pt-BR');
+
+    // Função para baixar como PDF
+    function baixarPDF() {
+        const elemento = document.getElementById('area-relatorio');
+        
+        const opcoes = {
+            margin: [10, 10, 10, 10], // margens em mm
+            filename: `relatorio-vendas-${new Date().toLocaleDateString('pt-BR').replaceAll('/', '-')}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opcoes).from(elemento).save();
+    }
+
+    // Função para abrir janela de impressão do navegador
+    function imprimir() {
+        window.print();
+    }
+</script>
+
+</body>
+</html>

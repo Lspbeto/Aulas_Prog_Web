@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Auth */
+.auth {
+  max-width: 400px;
+  margin: 40px auto;
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Botões */
+button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #0052a3;
+}
+
+button.sec {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button.sec:hover {
+  background-color: #d0d0d0;
+}
+
+button.link {
+  background: none;
+  color: #0066cc;
+  text-decoration: underline;
+  padding: 0;
+  margin-left: 12px;
+}
+
+/* Cabeçalho */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Abas */
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}
+
+.tab-btn {
+  background: #f0f0f0;
+  color: #333;
+  border: none;
+  flex: 1;
+}
+
+.tab-btn.active {
+  background: #0066cc;
+  color: #fff;
+}
+
+/* Formulário em Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+/* Tabelas */
+.scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+th, td {
+  border-bottom: 1px solid #eee;
+  padding: 8px;
+  text-align: left;
+}
+
+th.n, td.n {
+  text-align: right;
+}
+
+/* Mensagens */
+.msg {
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}

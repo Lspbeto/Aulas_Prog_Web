@@ -1,0 +1,782 @@
+/* ==========================================================================
+   SISTEMA DE GESTÃO E DESPENSA - script.js
+   ========================================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ======================================================================
+     1. REFERÊNCIAS AOS ELEMENTOS DO HTML (DOM)
+     ====================================================================== */
+
+  // --- Tela de login / cadastro ---
+  const telaAuth = document.getElementById("telaAuth");
+  const authTitulo = document.getElementById("authTitulo");
+  const authSub = document.getElementById("authSub");
+  const aUser = document.getElementById("aUser");
+  const aPass = document.getElementById("aPass");
+  const boxConfirma = document.getElementById("boxConfirma");
+  const aPass2 = document.getElementById("aPass2");
+  const authMsg = document.getElementById("authMsg");
+  const btnAuth = document.getElementById("btnAuth");
+  const btnTroca = document.getElementById("btnTroca");
+
+  // --- Mascote SVG ---
+  const mascotSvg = document.getElementById("mascotSvg");
+  const mouth = document.getElementById("mouth");
+  const eyebrowLeft = document.getElementById("eyebrowLeft");
+  const eyebrowRight = document.getElementById("eyebrowRight");
+  const tearLeft = document.getElementById("tearLeft");
+  const tearRight = document.getElementById("tearRight");
+  const pupils = document.querySelectorAll(".pupil");
+
+  // --- Tela principal (após login) ---
+  const telaApp = document.getElementById("telaApp");
+  const nomeLogado = document.getElementById("nomeLogado");
+  const btnSair = document.getElementById("btnSair");
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  // --- Aba Despensa ---
+  const dataHojeEl = document.getElementById("dataHoje");
+  const qtdVerdeEl = document.getElementById("qtdVerde");
+  const qtdAmareloEl = document.getElementById("qtdAmarelo");
+  const qtdVermelhoEl = document.getElementById("qtdVermelho");
+  const formProdutoDespensa = document.getElementById("formProduto");
+  const corpoTabelaDespensa = document.getElementById("corpoTabela");
+  const alertasDiv = document.getElementById("alertas");
+  const btnSalvarDespensa = document.getElementById("btnSalvarDespensa");
+  const btnCancelarDespensa = document.getElementById("btnCancelarDespensa");
+
+  // --- Aba Produtos Gerais ---
+  const pNome = document.getElementById("pNome");
+  const pPreco = document.getElementById("pPreco");
+  const pQtd = document.getElementById("pQtd");
+  const btnProduto = document.getElementById("btnProduto");
+  const prodMsg = document.getElementById("prodMsg");
+  const listaProdutos = document.getElementById("listaProdutos");
+  const vazioProd = document.getElementById("vazioProd");
+  const btnCancelarProduto = document.getElementById("btnCancelarProduto");
+
+  // --- Aba Usuários ---
+  const uNome = document.getElementById("uNome");
+  const uSenha = document.getElementById("uSenha");
+  const btnUsuario = document.getElementById("btnUsuario");
+  const userMsg = document.getElementById("userMsg");
+  const listaUsuarios = document.getElementById("listaUsuarios");
+
+  /* ======================================================================
+     2. ESTADO GLOBAL
+     ====================================================================== */
+
+  let modoLogin = true;
+
+  let usuarios = lerStorage("sis_usuarios", []);
+  let produtosSimples = lerStorage("sis_produtos", []);
+  let itensDespensa = lerStorage("sis_despensa", []);
+
+  let editandoDespensaId = null;
+  let editandoProdutoId = null;
+
+  let usuarioLogado = localStorage.getItem("sis_usuarioLogado") || null;
+
+  function lerStorage(chave, padrao) {
+    try {
+      const bruto = localStorage.getItem(chave);
+      return bruto ? JSON.parse(bruto) : padrao;
+    } catch (erro) {
+      console.error(`Erro ao ler "${chave}" do localStorage:`, erro);
+      return padrao;
+    }
+  }
+
+  function salvarStorage(chave, valor) {
+    localStorage.setItem(chave, JSON.stringify(valor));
+  }
+
+  function obterHoje() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  function normalizarNome(texto) {
+    return String(texto)
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, " ");
+  }
+
+  function buscarDuplicado(lista, nome, idIgnorar = null) {
+    const alvo = normalizarNome(nome);
+    return lista.find((i) => i.id !== idIgnorar && normalizarNome(i.nome) === alvo);
+  }
+
+  const despMsg = document.getElementById("despMsg");
+
+  /* ======================================================================
+     3. INICIALIZAÇÃO
+     ====================================================================== */
+  init();
+
+  function init() {
+    if (usuarioLogado) {
+      exibirApp();
+    } else {
+      exibirAuth();
+    }
+  }
+
+  /* ======================================================================
+     4. ANIMAÇÕES DO MASCOTE (RISO, DESÂNIMO & TCHAU)
+     ====================================================================== */
+
+  function mascoteNeutro() {
+    mascotSvg.className = "";
+    mouth.setAttribute("d", "M 62,98 Q 80,108 98,98");
+    eyebrowLeft.setAttribute("d", "M 52,58 Q 63,56 72,60");
+    eyebrowRight.setAttribute("d", "M 88,60 Q 97,56 108,58");
+    tearLeft.classList.add("hidden");
+    tearRight.classList.add("hidden");
+    pupils.forEach(p => p.setAttribute("r", "4.5"));
+  }
+
+  function mascoteRir() {
+    mascoteNeutro();
+    mascotSvg.classList.add("laughing");
+    // Boca aberta a rir
+    mouth.setAttribute("d", "M 60,92 Q 80,125 100,92 Z");
+    // Sobrancelhas franzidas de gargalhada
+    eyebrowLeft.setAttribute("d", "M 52,64 Q 63,56 72,62");
+    eyebrowRight.setAttribute("d", "M 88,62 Q 97,56 108,64");
+
+    setTimeout(() => {
+      mascoteNeutro();
+    }, 2500);
+  }
+
+  function mascoteDesanimado(callback) {
+    mascoteNeutro();
+    mascotSvg.classList.add("sad");
+    // Boca triste
+    mouth.setAttribute("d", "M 62,108 Q 80,92 98,108");
+    // Sobrancelhas caídas de tristeza
+    eyebrowLeft.setAttribute("d", "M 52,56 Q 63,64 72,66");
+    eyebrowRight.setAttribute("d", "M 88,66 Q 97,64 108,56");
+    // Lágrimas
+    tearLeft.classList.remove("hidden");
+    tearRight.classList.remove("hidden");
+
+    // Pausa de 2.5s desanimado
+    setTimeout(() => {
+      // Faz a transição para acenar tchau
+      mascotSvg.classList.remove("sad");
+      mascotSvg.classList.add("waving");
+      tearLeft.classList.add("hidden");
+      tearRight.classList.add("hidden");
+      mouth.setAttribute("d", "M 65,98 Q 80,102 95,98"); // Boca meio sem graça
+
+      setTimeout(() => {
+        mascoteNeutro();
+        if (callback) callback();
+      }, 1200);
+    }, 2500);
+  }
+
+  /* ======================================================================
+     5. NAVEGAÇÃO ENTRE TELAS E ABAS
+     ====================================================================== */
+
+  function exibirAuth() {
+    telaAuth.classList.remove("hidden");
+    telaApp.classList.add("hidden");
+    limparFormAuth();
+    mascoteNeutro();
+  }
+
+  function exibirApp() {
+    telaAuth.classList.add("hidden");
+    telaApp.classList.remove("hidden");
+    nomeLogado.textContent = usuarioLogado;
+
+    atualizarDespensa();
+    renderizarProdutosSimples();
+    renderizarUsuarios();
+  }
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tabAlvo = btn.getAttribute("data-tab");
+
+      tabBtns.forEach((b) => b.classList.remove("active"));
+      tabContents.forEach((c) => c.classList.add("hidden"));
+
+      btn.classList.add("active");
+      document.getElementById(tabAlvo).classList.remove("hidden");
+    });
+  });
+
+  function exibirMsg(elemento, texto, isSucesso = false) {
+    elemento.textContent = texto;
+    elemento.style.color = isSucesso ? "#2e7d32" : "#d32f2f";
+    if (texto) {
+      setTimeout(() => { elemento.textContent = ""; }, 4000);
+    }
+  }
+
+  /* ======================================================================
+     6. AUTENTICAÇÃO (login, cadastro e saída)
+     ====================================================================== */
+
+  btnTroca.addEventListener("click", () => {
+    modoLogin = !modoLogin;
+    limparFormAuth();
+    mascoteNeutro();
+
+    if (modoLogin) {
+      authTitulo.textContent = "Entrar";
+      authSub.textContent = "Use seu usuário e senha.";
+      btnAuth.textContent = "Entrar";
+      btnTroca.textContent = "Criar uma conta";
+      boxConfirma.classList.add("hidden");
+    } else {
+      authTitulo.textContent = "Criar conta";
+      authSub.textContent = "Preencha os dados abaixo para se cadastrar.";
+      btnAuth.textContent = "Cadastrar";
+      btnTroca.textContent = "Já tenho uma conta";
+      boxConfirma.classList.remove("hidden");
+    }
+  });
+
+  btnAuth.addEventListener("click", () => {
+    const user = aUser.value.trim();
+    const pass = aPass.value;
+
+    if (!user || !pass) {
+      mascoteRir();
+      exibirMsg(authMsg, "Preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    if (modoLogin) {
+      // ----- LOGIN -----
+      const encontrado = usuarios.find(
+        (u) => u.username === user && u.senha === pass
+      );
+
+      if (encontrado) {
+        usuarioLogado = encontrado.username;
+        localStorage.setItem("sis_usuarioLogado", usuarioLogado);
+
+        // Animação de desânimo -> tchau -> acede ao sistema
+        btnAuth.disabled = true;
+        exibirMsg(authMsg, "Ah não... acertaste a palavra-passe! 😞 A dar tchau...", true);
+        mascoteDesanimado(() => {
+          btnAuth.disabled = false;
+          exibirApp();
+        });
+      } else {
+        mascoteRir();
+        exibirMsg(authMsg, "HAHAHA! Usuário ou senha incorretos!");
+      }
+    } else {
+      // ----- CADASTRO -----
+      const pass2 = aPass2.value;
+
+      if (pass !== pass2) {
+        mascoteRir();
+        exibirMsg(authMsg, "As senhas não coincidem!");
+        return;
+      }
+
+      if (usuarios.some((u) => u.username === user)) {
+        mascoteRir();
+        exibirMsg(authMsg, "Este usuário já existe!");
+        return;
+      }
+
+      usuarios.push({ username: user, senha: pass });
+      salvarStorage("sis_usuarios", usuarios);
+
+      usuarioLogado = user;
+      localStorage.setItem("sis_usuarioLogado", usuarioLogado);
+
+      btnAuth.disabled = true;
+      exibirMsg(authMsg, "Conta criada... Que chatice! 😞 A entrar...", true);
+      mascoteDesanimado(() => {
+        btnAuth.disabled = false;
+        exibirApp();
+      });
+    }
+  });
+
+  [aUser, aPass, aPass2].forEach((campo) => {
+    campo.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") btnAuth.click();
+    });
+  });
+
+  btnSair.addEventListener("click", () => {
+    usuarioLogado = null;
+    localStorage.removeItem("sis_usuarioLogado");
+    sairEdicaoDespensa();
+    sairEdicaoProduto();
+    exibirAuth();
+  });
+
+  function limparFormAuth() {
+    aUser.value = "";
+    aPass.value = "";
+    aPass2.value = "";
+    authMsg.textContent = "";
+  }
+
+  /* ======================================================================
+     7. MÓDULO 1 - PAINEL DA DESPENSA
+     ====================================================================== */
+
+  formProdutoDespensa.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const dados = {
+      nome: document.getElementById("produto").value.trim(),
+      categoria: document.getElementById("categoria").value,
+      quantidade: parseFloat(document.getElementById("quantidade").value),
+      unidade: document.getElementById("unidade").value,
+      validade: document.getElementById("validade").value,
+      local: document.getElementById("local").value.trim() || "-",
+      valor: parseFloat(document.getElementById("valor").value) || 0
+    };
+
+    const duplicado = buscarDuplicado(itensDespensa, dados.nome, editandoDespensaId);
+    if (duplicado) {
+      exibirMsg(despMsg, `"${duplicado.nome}" já está cadastrado na despensa. Edite o item existente em vez de criar outro.`);
+      return;
+    }
+
+    if (editandoDespensaId !== null) {
+      const item = itensDespensa.find((p) => p.id === editandoDespensaId);
+      if (item) Object.assign(item, dados);
+    } else {
+      itensDespensa.push({ id: Date.now(), ...dados });
+    }
+
+    salvarStorage("sis_despensa", itensDespensa);
+    sairEdicaoDespensa();
+    atualizarDespensa();
+  });
+
+  function iniciarEdicaoDespensa(id) {
+    const item = itensDespensa.find((p) => p.id === id);
+    if (!item) return;
+
+    editandoDespensaId = id;
+    document.getElementById("produto").value = item.nome;
+    document.getElementById("categoria").value = item.categoria;
+    document.getElementById("quantidade").value = item.quantidade;
+    document.getElementById("unidade").value = item.unidade;
+    document.getElementById("validade").value = item.validade;
+    document.getElementById("local").value = item.local === "-" ? "" : item.local;
+    document.getElementById("valor").value = item.valor || "";
+
+    btnSalvarDespensa.textContent = "💾 Salvar alterações";
+    btnCancelarDespensa.classList.remove("hidden");
+    atualizarDespensa();
+    formProdutoDespensa.scrollIntoView({ behavior: "smooth", block: "center" });
+    document.getElementById("produto").focus();
+  }
+
+  function sairEdicaoDespensa() {
+    editandoDespensaId = null;
+    formProdutoDespensa.reset();
+    btnSalvarDespensa.textContent = "➕ Adicionar à Despensa";
+    btnCancelarDespensa.classList.add("hidden");
+  }
+
+  btnCancelarDespensa.addEventListener("click", () => {
+    sairEdicaoDespensa();
+    atualizarDespensa();
+  });
+
+  function atualizarDespensa() {
+    const hoje = obterHoje();
+    dataHojeEl.textContent = formatarDataBR(hoje);
+
+    const contadores = { verde: 0, amarelo: 0, vermelho: 0 };
+    const listaAlertas = [];
+
+    corpoTabelaDespensa.innerHTML = "";
+
+    if (itensDespensa.length === 0) {
+      corpoTabelaDespensa.innerHTML =
+        `<tr><td colspan="9" style="text-align:center;color:#666;">Nenhum ingrediente na despensa.</td></tr>`;
+    }
+
+    itensDespensa.sort((a, b) => new Date(a.validade) - new Date(b.validade));
+
+    itensDespensa.forEach((item) => {
+      const [ano, mes, dia] = item.validade.split("-");
+      const dataValidade = new Date(ano, mes - 1, dia);
+      dataValidade.setHours(0, 0, 0, 0);
+
+      const diffTempo = dataValidade.getTime() - hoje.getTime();
+      const diffDias = Math.ceil(diffTempo / (1000 * 60 * 60 * 24));
+
+      const statusObj = calcularStatus(diffDias);
+      contadores[statusObj.chave]++;
+
+      if (statusObj.chave === "amarelo") {
+        listaAlertas.push(
+          `🟡 <strong>${escapeHtml(item.nome)}</strong> vence em ${diffDias} dia(s) (${formatarDataBR(dataValidade)}).`
+        );
+      } else if (statusObj.chave === "vermelho") {
+        const textoPrazo = diffDias === 0
+          ? "vence HOJE"
+          : `venceu há ${Math.abs(diffDias)} dia(s)`;
+        listaAlertas.push(
+          `🔴 <strong>${escapeHtml(item.nome)}</strong> ${textoPrazo} (${formatarDataBR(dataValidade)}).`
+        );
+      }
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><strong>${escapeHtml(item.nome)}</strong></td>
+        <td>${escapeHtml(item.categoria)}</td>
+        <td>${item.quantidade}${escapeHtml(item.unidade)}</td>
+        <td>${formatarDataBR(dataValidade)}</td>
+        <td>${statusObj.textoPrazo}</td>
+        <td>${statusObj.badge}</td>
+        <td>${escapeHtml(item.local)}</td>
+        <td>R$ ${Number(item.valor || 0).toFixed(2).replace(".", ",")}</td>
+        
+        <td>
+          <div class="acoes">
+            <button type="button" class="sec editar" style="padding:2px 8px;"
+                    data-acao="editar-despensa" data-id="${item.id}">Editar</button>
+            <button type="button" class="sec" style="padding:2px 8px;"
+                    data-acao="excluir-despensa" data-id="${item.id}">Excluir</button>
+          </div>
+        </td>
+      `;
+      if (item.id === editandoDespensaId) tr.classList.add("editando");
+      corpoTabelaDespensa.appendChild(tr);
+    });
+
+    qtdVerdeEl.textContent = contadores.verde;
+    qtdAmareloEl.textContent = contadores.amarelo;
+    qtdVermelhoEl.textContent = contadores.vermelho;
+
+    renderizarAlertas(listaAlertas);
+  }
+
+  function calcularStatus(dias) {
+    if (dias > 7) {
+      return { chave: "verde", badge: "🟢 OK", textoPrazo: `Restam ${dias} dias` };
+    } else if (dias >= 1) {
+      return { chave: "amarelo", badge: "🟡 Próximo", textoPrazo: `Restam ${dias} dia(s)` };
+    } else {
+      const texto = dias === 0 ? "Vence hoje!" : `Vencido há ${Math.abs(dias)} dia(s)`;
+      return { chave: "vermelho", badge: "🔴 Vencido", textoPrazo: texto };
+    }
+  }
+
+  function renderizarAlertas(alertas) {
+    alertasDiv.innerHTML = "";
+
+    if (alertas.length === 0) {
+      alertasDiv.innerHTML = "<p>✅ Todos os produtos estão com a validade em dia!</p>";
+      return;
+    }
+
+    const ul = document.createElement("ul");
+    alertas.forEach((alerta) => {
+      const li = document.createElement("li");
+      li.innerHTML = alerta;
+      ul.appendChild(li);
+    });
+    alertasDiv.appendChild(ul);
+  }
+
+  function removerItemDespensa(id) {
+    if (id === editandoDespensaId) sairEdicaoDespensa();
+    itensDespensa = itensDespensa.filter((p) => p.id !== id);
+    salvarStorage("sis_despensa", itensDespensa);
+    atualizarDespensa();
+  }
+
+  corpoTabelaDespensa.addEventListener("click", (e) => {
+    const botao = e.target.closest("[data-acao]");
+    if (!botao) return;
+    const id = Number(botao.dataset.id);
+    if (botao.dataset.acao === "editar-despensa") iniciarEdicaoDespensa(id);
+    if (botao.dataset.acao === "excluir-despensa") removerItemDespensa(id);
+  });
+
+  /* ======================================================================
+     8. MÓDULO 2 - PRODUTOS SIMPLES
+     ====================================================================== */
+
+  btnProduto.addEventListener("click", () => {
+    const nome = pNome.value.trim();
+    const preco = parseFloat(pPreco.value);
+    const qtd = parseInt(pQtd.value, 10);
+
+    if (!nome || isNaN(preco) || isNaN(qtd)) {
+      exibirMsg(prodMsg, "Preencha todos os campos corretamente.");
+      return;
+    }
+
+    const duplicado = buscarDuplicado(produtosSimples, nome, editandoProdutoId);
+    if (duplicado) {
+      exibirMsg(prodMsg, `O produto "${duplicado.nome}" já está cadastrado.`);
+      return;
+    }
+
+    const editando = editandoProdutoId !== null;
+
+    if (editando) {
+      const prod = produtosSimples.find((p) => p.id === editandoProdutoId);
+      if (prod) Object.assign(prod, { nome, preco, qtd });
+    } else {
+      produtosSimples.push({ id: Date.now(), nome, preco, qtd });
+    }
+    salvarStorage("sis_produtos", produtosSimples);
+
+    sairEdicaoProduto();
+    exibirMsg(prodMsg, editando ? "Produto atualizado!" : "Produto cadastrado!", true);
+    renderizarProdutosSimples();
+  });
+
+  function renderizarProdutosSimples() {
+    listaProdutos.innerHTML = "";
+
+    if (produtosSimples.length === 0) {
+      vazioProd.classList.remove("hidden");
+      return;
+    }
+    vazioProd.classList.add("hidden");
+
+    produtosSimples.forEach((prod) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escapeHtml(prod.nome)}</td>
+        <td class="n">R$ ${prod.preco.toFixed(2)}</td>
+        <td class="n">${prod.qtd}</td>
+        <td>
+          <div class="acoes">
+            <button type="button" class="sec editar" style="padding:2px 8px;"
+                    data-acao="editar-produto" data-id="${prod.id}">Editar</button>
+            <button type="button" class="sec" style="padding:2px 8px;"
+                    data-acao="excluir-produto" data-id="${prod.id}">Excluir</button>
+          </div>
+        </td>
+      `;
+      if (prod.id === editandoProdutoId) tr.classList.add("editando");
+      listaProdutos.appendChild(tr);
+    });
+  }
+
+  function iniciarEdicaoProduto(id) {
+    const prod = produtosSimples.find((p) => p.id === id);
+    if (!prod) return;
+
+    editandoProdutoId = id;
+    pNome.value = prod.nome;
+    pPreco.value = prod.preco;
+    pQtd.value = prod.qtd;
+
+    btnProduto.textContent = "Salvar";
+    btnCancelarProduto.classList.remove("hidden");
+    renderizarProdutosSimples();
+    pNome.focus();
+  }
+
+  function sairEdicaoProduto() {
+    editandoProdutoId = null;
+    pNome.value = "";
+    pPreco.value = "";
+    pQtd.value = "";
+    btnProduto.textContent = "Adicionar";
+    btnCancelarProduto.classList.add("hidden");
+  }
+
+  btnCancelarProduto.addEventListener("click", () => {
+    sairEdicaoProduto();
+    renderizarProdutosSimples();
+  });
+
+  function removerProdutoSimples(id) {
+    if (id === editandoProdutoId) sairEdicaoProduto();
+    produtosSimples = produtosSimples.filter((p) => p.id !== id);
+    salvarStorage("sis_produtos", produtosSimples);
+    renderizarProdutosSimples();
+  }
+
+  listaProdutos.addEventListener("click", (e) => {
+    const botao = e.target.closest("[data-acao]");
+    if (!botao) return;
+    const id = Number(botao.dataset.id);
+    if (botao.dataset.acao === "editar-produto") iniciarEdicaoProduto(id);
+    if (botao.dataset.acao === "excluir-produto") removerProdutoSimples(id);
+  });
+
+  /* ======================================================================
+     9. MÓDULO 3 - GESTÃO DE USUÁRIOS
+     ====================================================================== */
+
+  btnUsuario.addEventListener("click", () => {
+    const username = uNome.value.trim();
+    const senha = uSenha.value;
+
+    if (!username || !senha) {
+      exibirMsg(userMsg, "Preencha o usuário e a senha.");
+      return;
+    }
+    if (usuarios.some((u) => u.username === username)) {
+      exibirMsg(userMsg, "Usuário já existe.");
+      return;
+    }
+
+    usuarios.push({ username, senha });
+    salvarStorage("sis_usuarios", usuarios);
+
+    uNome.value = "";
+    uSenha.value = "";
+
+    exibirMsg(userMsg, "Usuário cadastrado com sucesso!", true);
+    renderizarUsuarios();
+  });
+
+  function renderizarUsuarios() {
+    listaUsuarios.innerHTML = "";
+
+    usuarios.forEach((user) => {
+      const tr = document.createElement("tr");
+
+      const tdNome = document.createElement("td");
+      tdNome.textContent = user.username;
+
+      const tdAcao = document.createElement("td");
+      tdAcao.style.textAlign = "right";
+
+      if (user.username === usuarioLogado) {
+        const small = document.createElement("small");
+        small.style.color = "#666";
+        small.textContent = "(Você)";
+        tdAcao.appendChild(small);
+      } else {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "sec";
+        btn.style.padding = "2px 8px";
+        btn.textContent = "Excluir";
+        btn.dataset.acao = "excluir-usuario";
+        btn.dataset.username = user.username;
+        tdAcao.appendChild(btn);
+      }
+
+      tr.appendChild(tdNome);
+      tr.appendChild(tdAcao);
+      listaUsuarios.appendChild(tr);
+    });
+  }
+
+  function removerUsuario(username) {
+    if (username === usuarioLogado) return;
+
+    usuarios = usuarios.filter((u) => u.username !== username);
+    salvarStorage("sis_usuarios", usuarios);
+    renderizarUsuarios();
+  }
+
+  listaUsuarios.addEventListener("click", (e) => {
+    const botao = e.target.closest("[data-acao='excluir-usuario']");
+    if (botao) removerUsuario(botao.dataset.username);
+  });
+
+  /* ======================================================================
+     10. RELATÓRIO
+     ====================================================================== */
+
+  const btnImprimir = document.getElementById("btnImprimir");
+  const btnPdf = document.getElementById("btnPdf");
+  const relMsg = document.getElementById("relMsg");
+  const areaRelatorio = document.getElementById("relatorioImpressao");
+
+  const CABECALHO_DESPENSA = ["Produto", "Categoria", "Quantidade", "Validade", "Prazo", "Status", "Local", "Preço"];
+  const CABECALHO_PRODUTOS = ["Nome", "Preço", "Quantidade"];
+  const ROTULO_STATUS = { verde: "OK", amarelo: "Próximo", vermelho: "Vencido" };
+  const COR_STATUS = { verde: [46, 125, 50], amarelo: [183, 121, 0], vermelho: [179, 38, 30] };
+
+  function moeda(valor) {
+    return "R$ " + Number(valor || 0).toFixed(2).replace(".", ",");
+  }
+
+  function montarDadosRelatorio() {
+    const hoje = obterHoje();
+    const contadores = { verde: 0, amarelo: 0, vermelho: 0 };
+    let total = 0;
+
+    const ordenados = [...itensDespensa].sort((a, b) => a.validade.localeCompare(b.validade));
+
+    const despensa = ordenados.map((item) => {
+      const [ano, mes, dia] = item.validade.split("-");
+      const dataValidade = new Date(ano, mes - 1, dia);
+      dataValidade.setHours(0, 0, 0, 0);
+      const dias = Math.ceil((dataValidade.getTime() - hoje.getTime()) / (1000 * 60 * 60 * 24));
+
+      const st = calcularStatus(dias);
+      contadores[st.chave]++;
+      total += Number(item.valor) || 0;
+
+      return {
+        chave: st.chave,
+        colunas: [
+          item.nome,
+          item.categoria,
+          `${item.quantidade}${item.unidade}`,
+          formatarDataBR(dataValidade),
+          st.textoPrazo,
+          ROTULO_STATUS[st.chave],
+          item.local,
+          moeda(item.valor)
+        ]
+      };
+    });
+
+    const produtos = produtosSimples.map((p) => [p.nome, moeda(p.preco), String(p.qtd)]);
+
+    const mm = String(hoje.getMonth() + 1).padStart(2, "0");
+    const dd = String(hoje.getDate()).padStart(2, "0");
+
+    return {
+      dataHoje: formatarDataBR(hoje),
+      dataArquivo: `${hoje.getFullYear()}-${mm}-${dd}`,
+      usuario: usuarioLogado,
+      contadores,
+      despensa,
+      produtos,
+      total
+    };
+  }
+
+  function tabelaHtml(cabecalho, linhas, mensagemVazia) {
+    const th = cabecalho.map((c) => `<th>${escapeHtml(c)}</th>`).join("");
+    const corpo = linhas.length
+      ? linhas.map((l) => "<tr>" + l.map((c) => `<td>${escapeHtml(c)}</td>`).join("") + "</tr>").join("")
+      : `<tr><td colspan="${cabecalho.length}" style="text-align:center">${mensagemVazia}</td></tr>`;
+    return `<table><thead><tr>${th}</tr></thead><tbody>${corpo}</tbody></table>`;
+  }
+
+  function imprimirRelatorio() {
+    const d = montarDadosRelatorio();
+
+    areaRelatorio.innerHTML = `
+      <h1>Relatório da Despensa</h1>
+      <p>Data de referência: <strong>${d.dataHoje}</strong> &nbsp;\vert{}&nbsp; Gerado por: <strong>${escapeHtml(d.usuario)}</strong></p>
+      <p>Dentro da validade: <strong>${d.contadores.verde}</strong> &nbsp;|&nbsp;
+         Próximos do vencimento: <strong>${d.contadores.amarelo}</strong> &nbsp;|&nbsp;
+         Vencidos: <strong>${d.contadores.vermelho}</strong></p>
+
+      <h2>Ingredientes da despensa</h2>

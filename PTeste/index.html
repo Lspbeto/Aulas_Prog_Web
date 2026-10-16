@@ -3,17 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Produtos</title>
+    <title>Sistema Completo - HTML + JS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f0f4f8; padding: 2rem; }
+        .container { max-width: 420px; margin: 0 auto; }
+        .caixa { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+        h2 { text-align: center; color: #2d3748; margin-bottom: 1.5rem; }
+        .grupo { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; color: #4a5568; }
+        input { width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 1rem; }
+        button { width: 100%; padding: 0.75rem; background: #38a169; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-top: 0.5rem; transition: background 0.3s; }
+        button:hover { background: #2f855a; }
+        .msg { margin-top: 1rem; padding: 0.75rem; border-radius: 6px; display: none; text-align: center; }
+        .erro { background: #fed7d7; color: #c53030; }
+        .ok { background: #c6f6d5; color: #22543d; }
+        .aba { display: flex; margin-bottom: 1rem; }
+        .aba button { flex: 1; margin: 0; border-radius: 0; background: #e2e8f0; color: #333; }
+        .aba button.ativa { background: #3182ce; color: white; }
+        .painel { text-align: center; }
+        .sair { background: #e53e3e; }
+        .sair:hover { background: #c53030; }
+        .escondido { display: none !important; }
+    </style>
 </head>
 <body>
-    <h1>Lista de Produtos</h1>
-    <p>Digite um produto:</p>
-    <input id="prod" type="text" placeholder="Ex: Uva" required>
-    <button type="button" onclick="atv()">Enviar</button>
-    
-    <!-- Corrigido: espaço removido do id -->
-    <p id="resposta">Aguardando...</p>
+    <div class="container">
+        <!-- Tela de Login/Cadastro -->
+        <div id="telaAcesso" class="caixa">
+            <div class="aba">
+                <button id="btnLogin" class="ativa" onclick="mostrarAba('login')">Login</button>
+                <button id="btnCadastro" onclick="mostrarAba('cadastro')">Cadastro</button>
+            </div>
 
-    <script src="script.js"></script>
+            <!-- Formulário Login -->
+            <form id="formLogin">
+                <h2>Entrar</h2>
+                <div class="grupo">
+                    <label>Usuário</label>
+                    <input type="text" id="usuario" required>
+                </div>
+                <div class="grupo">
+                    <label>Senha</label>
+                    <input type="password" id="senha" required>
+                </div>
+                <button type="submit">Entrar</button>
+                <div id="msgLogin" class="msg"></div>
+            </form>
+
+            <!-- Formulário Cadastro -->
+            <form id="formCadastro" class="escondido">
+                <h2>Cadastrar</h2>
+                <div class="grupo">
+                    <label>Nome Completo</label>
+                    <input type="text" id="nomeCompleto" required>
+                </div>
+                <div class="grupo">
+                    <label>Usuário</label>
+                    <input type="text" id="novoUsuario" required>
+                </div>
+                <div class="grupo">
+                    <label>Senha</label>
+                    <input type="password" id="novaSenha" required>
+                </div>
+                <button type="submit">Cadastrar</button>
+                <div id="msgCadastro" class="msg"></div>
+            </form>
+        </div>
+
+        <!-- Tela do Sistema -->
+        <div id="telaPainel" class="caixa escondido">
+            <h2 id="bemVindo"></h2>
+            <p>Você está logado no sistema.</p>
+            <button class="sair" onclick="sair()">Sair da Conta</button>
+        </div>
+    </div>
+
+    <script>
+        // Alternar entre login e cadastro
+        function mostrarAba(tipo) {
+            document.getElementById("formLogin").classList.toggle("escondido", tipo !== "login");
+            document.getElementById("formCadastro").classList.toggle("escondido", tipo !== "cadastro");
+            document.getElementById("btnLogin").classList.toggle("ativa", tipo === "login");
+            document.getElementById("btnCadastro").classList.toggle("ativa", tipo === "cadastro");
+        }
+
+        // Obter lista de usuários salvos
+        function getUsuarios() {
+            return JSON.parse(localStorage.getItem("usuarios") || "[]");
+        }
+
+        // Salvar lista de usuários
+        function salvarUsuarios(lista) {
+            localStorage.setItem("usuarios", JSON.stringify(lista));
+        }
+
+        // Cadastro
+        document.getElementById("formCadastro").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const nome = document.getElementById("nomeCompleto").value.trim();
+            const usuario = document.getElementById("novoUsuario").value.trim();
+            const senha = document.getElementById("novaSenha").value;
+            const msg = document.getElementById("msgCadastro");
+
+            const lista = getUsuarios();
+            if (lista.find(u => u.usuario === usuario)) {
+                msg.textContent = "❌ Usuário já existe!";
+                msg.className = "msg erro";
+                msg.style.display = "block";
+                return;
+            }
+
+            lista.push({ nome, usuario, senha });
+            salvarUsuarios(lista);
+
+            msg.textContent = "✅ Cadastro feito! Faça login.";
+            msg.className = "msg ok";
+            msg.style.display = "block";
+            e.target.reset();
+            setTimeout(() => mostrarAba("login"), 1500);
+        });
+
+        // Login
+        document.getElementById("formLogin").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const usuario = document.getElementById("usuario").value.trim();
+            const senha = document.getElementById("senha").value;
+            const msg = document.getElementById("msgLogin");
+
+            const lista = getUsuarios();
+            const usuarioLogado = lista.find(u => u.usuario === usuario && u.senha === senha);
+
+            if (usuarioLogado) {
+                localStorage.setItem("sessao", JSON.stringify(usuarioLogado));
+                abrirPainel(usuarioLogado);
+            } else {
+                msg.textContent = "❌ Usuário ou senha incorretos!";
+                msg.className = "msg erro";
+                msg.style.display = "block";
+            }
+        });
+
+        // Mostrar painel
+        function abrirPainel(dados) {
+            document.getElementById("telaAcesso").classList.add("escondido");
+            document.getElementById("telaPainel").classList.remove("escondido");
+            document.getElementById("bemVindo").textContent = `Bem-vindo, ${dados.nome}!`;
+        }
+
+        // Verificar sessão ao carregar
+        window.onload = () => {
+            const sessao = JSON.parse(localStorage.getItem("sessao"));
+            if (sessao) abrirPainel(sessao);
+        };
+
+        // Logout
+        function sair() {
+            localStorage.removeItem("sessao");
+            document.getElementById("telaPainel").classList.add("escondido");
+            document.getElementById("telaAcesso").classList.remove("escondido");
+            document.getElementById("formLogin").reset();
+        }
+    </script>
 </body>
 </html>

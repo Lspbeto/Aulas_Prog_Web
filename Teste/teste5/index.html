@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de Gestão e Despensa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main id="painel-principal">
+    
+    <!-- TELA DE LOGIN / CADASTRO DE CONTA -->
+    <section id="telaAuth" class="auth card">
+
+      <!-- MASCOTE ANIMADO -->
+      <div class="mascot-container">
+        <svg id="mascotSvg" viewBox="0 0 160 160" width="130" height="130">
+          <!-- Sombra -->
+          <ellipse cx="80" cy="150" rx="40" ry="8" fill="rgba(0,0,0,0.12)"/>
+          
+          <!-- Braço Esquerdo -->
+          <g id="armLeft" class="arm" transform-origin="45 95">
+            <path d="M 45,95 Q 25,115 20,100" stroke="#2d5a44" stroke-width="8" stroke-linecap="round" fill="none"/>
+          </g>
+
+          <!-- Braço Direito -->
+          <g id="armRight" class="arm" transform-origin="115 95">
+            <path d="M 115,95 Q 135,115 140,100" stroke="#2d5a44" stroke-width="8" stroke-linecap="round" fill="none"/>
+          </g>
+
+          <!-- Corpo/Cabeça -->
+          <circle cx="80" cy="85" r="48" fill="#2d5a44"/>
+          <circle cx="80" cy="85" r="43" fill="#3a7055"/>
+
+          <!-- Olhos -->
+          <g id="eyes">
+            <!-- Olho Esquerdo -->
+            <circle class="eye-bg" cx="63" cy="75" r="11" fill="#ffffff"/>
+            <circle class="pupil" cx="63" cy="75" r="4.5" fill="#1b2a23"/>
+            <!-- Olho Direito -->
+            <circle class="eye-bg" cx="97" cy="75" r="11" fill="#ffffff"/>
+            <circle class="pupil" cx="97" cy="75" r="4.5" fill="#1b2a23"/>
+          </g>
+
+          <!-- Sobrancelhas -->
+          <path id="eyebrowLeft" d="M 52,58 Q 63,56 72,60" stroke="#1b2a23" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <path id="eyebrowRight" d="M 88,60 Q 97,56 108,58" stroke="#1b2a23" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+          <!-- Boca -->
+          <path id="mouth" d="M 62,98 Q 80,108 98,98" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+          <!-- Lágrimas (Visíveis no estado desanimado) -->
+          <path id="tearLeft" class="tear hidden" d="M 58,88 Q 56,96 58,100 Q 60,96 58,88" fill="#64b5f6"/>
+          <path id="tearRight" class="tear hidden" d="M 102,88 Q 100,96 102,100 Q 104,96 102,88" fill="#64b5f6"/>
+        </svg>
+      </div>
+
+      <h1 id="authTitulo">Entrar</h1>
+      <p class="sub" id="authSub">Use seu usuário e senha.</p>
+      <div class="field">
+        <label for="aUser">Usuário</label>
+        <input type="text" id="aUser" autocomplete="username">
+      </div>
+
+      <div class="field">
+        <label for="aPass">Senha</label>
+        <input id="aPass" type="password" autocomplete="current-password">
+      </div>
+
+      <div id="boxConfirma" class="hidden field">
+        <label for="aPass2">Confirmar senha</label>
+        <input id="aPass2" type="password" autocomplete="new-password">
+      </div>
+      <p class="msg" id="authMsg" role="alert"></p>
+
+      <div class="row" style="margin-top:12px">
+        <button id="btnAuth" type="button">Entrar</button>
+        <button class="link" id="btnTroca" type="button">Criar uma conta</button>
+      </div>
+    </section>
+
+    <!-- TELA DO SISTEMA (APÓS LOGIN) -->
+    <section id="telaApp" class="hidden">
+      <!-- CABEÇALHO -->
+      <div class="top card">
+        <div>
+          <h1>Controle de Produtos e Despensa</h1>
+          <div class="sub" style="margin:0">Logado como <strong id="nomeLogado"></strong></div>
+        </div>
+        <button class="sec" id="btnSair" type="button">Sair</button>
+      </div>
+
+      <!-- NAVEGAÇÃO DE ABAS -->
+      <nav class="tabs card">
+        <button class="tab-btn active" data-tab="tabDespensa">🥑 Painel da Despensa</button>
+        <button class="tab-btn" data-tab="tabProdutos">📦 Produtos Gerais</button>
+        <button class="tab-btn" data-tab="tabUsuarios">👤 Gestão de Usuários</button>
+      </nav>
+
+      <!-- ABA 1: PAINEL DA DESPENSA -->
+      <div id="tabDespensa" class="tab-content">
+        <!-- RESUMO -->
+        <section aria-labelledby="titulo-resumo" class="card">
+          <h2 id="titulo-resumo">Resumo do estoque</h2>
+          <p>Data de referência: <strong id="dataHoje"></strong></p>
+          <ul id="resumo">
+            <li>🟢 Produtos dentro da validade: <strong id="qtdVerde">0</strong></li>
+            <li>🟡 Produtos próximos do vencimento: <strong id="qtdAmarelo">0</strong></li>
+            <li>🔴 Produtos vencidos: <strong id="qtdVermelho">0</strong></li>
+          </ul>
+        </section>
+
+        <!-- FORMULÁRIO DE CADASTRO DE INGREDIENTES -->
+        <section id="produtos-despensa" aria-labelledby="titulo-cadastro-despensa" class="card">
+          <h2 id="titulo-cadastro-despensa">📦 Cadastrar ingrediente na despensa</h2>
+          <form id="formProduto">
+            <div class="form-grid">
+              <div>
+                <label for="produto">Nome do ingrediente</label>
+                <input type="text" id="produto" name="produto" placeholder="Ex: Arroz" required>
+              </div>
+
+              <div>
+                <label for="categoria">Categoria</label>
+                <select id="categoria" name="categoria" required>
+                  <option value="">Selecione</option>
+                  <option value="Massas">Massas</option>
+                  <option value="Grãos">Grãos</option>
+                  <option value="Trigo">Trigo</option>
+                  <option value="Carnes">Carnes</option>
+                  <option value="Verduras">Verduras</option>
+                  <option value="Frutas">Frutas</option>
+                  <option value="Laticínios">Laticínios</option>
+                  <option value="Temperos">Temperos</option>
+                  <option value="Legumes">Legumes</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="quantidade">Quantidade</label>
+                <input type="number" id="quantidade" name="quantidade" min="0.01" step="any" placeholder="Ex: 10" required>
+              </div>
+
+              <div>
+                <label for="unidade">Unidade</label>
+                <select id="unidade" name="unidade">
+                  <option value="kg">Quilograma (kg)</option>
+                  <option value="g">Grama (g)</option>
+                  <option value="L">Litro (L)</option>
+                  <option value="unidade">Unidade</option>
+                  <option value="cx">Caixa</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="validade">Data de validade</label>
+                <input type="date" id="validade" name="validade" required>
+              </div>
+
+              <div>
+                <label for="local">Local de armazenamento</label>
+                <input type="text" id="local" name="local" placeholder="Ex: Prateleira 2">
+              </div>
+
+              <div>
+                <label for="valor">Preço do produto (R$)</label>
+                <input type="number" id="valor" name="valor" step="0.01" min="0" placeholder="Ex: 12,50">
+              </div>
+            </div>
+
+            <div class="row" style="margin-top: 12px;">
+              <button type="submit" id="btnSalvarDespensa">➕ Adicionar à Despensa</button>
+              <button type="button" id="btnCancelarDespensa" class="sec hidden">Cancelar edição</button>
+            </div>
+            <p class="msg" id="despMsg" role="alert"></p>
+          </form>
+        </section>
+
+        <!-- LISTA DE INGREDIENTES DA DESPENSA -->
+        <section aria-labelledby="titulo-lista" class="card">
+          <h2 id="titulo-lista">📋 Lista de ingredientes</h2>
+          <div class="scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Produto</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Quantidade</th>
+                  <th scope="col">Validade</th>
+                  <th scope="col">Prazo</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Local</th>
+                  <th scope="col">Preço</th>
+                  <th scope="col">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="corpoTabela"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ALERTAS -->
+        <section aria-labelledby="titulo-alertas" class="card">
+          <h2 id="titulo-alertas">⚠️Alertas de validade</h2>
+          <div id="alertas"></div>
+        </section>
+
+        <!-- RELATÓRIO: IMPRIMIR / BAIXAR PDF -->
+        <section aria-labelledby="titulo-relatorio" class="card">
+          <h2 id="titulo-relatorio">🖨️ Relatório</h2>
+          <p class="sub">Inclui o resumo do estoque, os ingredientes da despensa e os produtos cadastrados.</p>
+          <div class="row">
+            <button type="button" id="btnImprimir">🖨️ Imprimir</button>
+            <button type="button" id="btnPdf" class="sec">📄 Baixar PDF</button>
+          </div>
+          <p class="msg" id="relMsg" role="alert"></p>
+        </section>
+      </div>
+
+      <!-- ABA 2: PRODUTOS GERAIS (SIMPLES) -->
+      <div id="tabProdutos" class="tab-content hidden">
+        <div class="card">
+          <h2>Cadastrar produto</h2>
+          <div class="row">
+            <div style="flex-basis:220px">
+              <label for="pNome">Nome:</label>
+              <input id="pNome">
+            </div>
+            <div>
+              <label for="pPreco">Preço (R$):</label>
+              <input id="pPreco" type="number" min="0" step="0.01">
+            </div>
+            <div>
+              <label for="pQtd">Quantidade:</label>
+              <input id="pQtd" type="number" min="0" step="1">
+            </div>
+            <div style="flex:0 0 auto">
+              <button id="btnProduto" type="button">Adicionar</button>
+              <button id="btnCancelarProduto" type="button" class="sec hidden">Cancelar</button>
+            </div>
+          </div>
+          <p class="msg" id="prodMsg" role="alert"></p>
+        </div>
+
+        <div class="card">
+          <h2>Produtos cadastrados</h2>
+          <div class="scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th class="n">Preço</th>
+                  <th class="n">Qtd</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="listaProdutos"></tbody>
+            </table>
+          </div>
+          <div class="vazio hidden" id="vazioProd">Nenhum produto está cadastrado ainda.</div>
+        </div>
+      </div>
+
+      <!-- ABA 3: GESTÃO DE USUÁRIOS -->
+      <div id="tabUsuarios" class="tab-content hidden">
+        <div class="card">
+          <h2>Cadastrar usuário</h2>
+          <div class="row">
+            <div>
+              <label for="uNome">Usuário</label>
+              <input id="uNome" autocomplete="off">
+            </div>
+            <div>
+              <label for="uSenha">Senha</label>
+              <input id="uSenha" type="password" autocomplete="new-password">
+            </div>
+            <div style="flex:0 0 auto">
+              <button id="btnUsuario" type="button">Cadastrar</button>
+            </div>
+          </div>
+          <p class="msg" id="userMsg" role="alert"></p>
+
+          <div class="scroll" style="margin-top: 15px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Usuários cadastrados</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="listaUsuarios"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="relatorioImpressao" class="relatorio-impressao" aria-hidden="true"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
