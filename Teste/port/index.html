@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu E-commerce Vanilla</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Loja Virtual</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="carrinho.html">Carrinho (<span id="contador-carrinho">0</span>)</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Nossos Produtos</h2>
+        <div id="lista-produtos" class="grid-produtos">
+            <!-- Os produtos serão injetados aqui via JavaScript -->
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Executa ao carregar a página inicial
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarVitrine();
+            atualizarContadorCarrinho();
+        });
+    </script>
+</body>
+</html>

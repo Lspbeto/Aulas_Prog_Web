@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Meu E-commerce</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Loja Virtual</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="carrinho.html">Carrinho (<span id="contador-carrinho">0</span>)</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Seu Carrinho de Compras</h2>
+        <div id="itens-carrinho">
+            <!-- Os itens do carrinho serão injetados aqui via JavaScript -->
+        </div>
+        
+        <div id="resumo-carrinho" class="resumo-carrinho">
+            <h3>Total: R$ <span id="valor-total">0.00</span></h3>
+            <button onclick="finalizarCompra()" class="btn-finalizar">Finalizar Compra</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Executa ao carregar a página do carrinho
+        document.addEventListener("DOMContentLoaded", () => {
+            carregarCarrinhoPagina();
+            atualizarContadorCarrinho();
+        });
+    </script>
+</body>
+</html>
