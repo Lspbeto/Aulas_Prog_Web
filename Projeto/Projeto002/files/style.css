@@ -1,0 +1,233 @@
+/* =====================================================
+   1. VARIÁVEIS CSS
+   :root = o elemento raiz (<html>). Variáveis criadas aqui valem na página toda.
+   Para usar: var(--nome). Trocar um valor aqui muda o site inteiro.
+   ===================================================== */
+:root {
+  --fundo: #eef2f4;      /* cor de fundo da página (cinza azulado claro) */
+  --tinta: #12212b;      /* cor principal do texto */
+  --suave: #4a5a66;      /* cor de textos secundários */
+  --destaque: #f2b632;   /* amarelo dos botões */
+  --verde: #1f6f6b;      /* verde de detalhes */
+  --branco: #ffffff;
+  --raio: 14px;          /* arredondamento padrão dos cartões */
+  --fonte-titulo: "Bricolage Grotesque", Georgia, sans-serif; /* se a 1ª fonte falhar, usa a próxima */
+  --fonte-texto: "DM Sans", system-ui, sans-serif;
+}
+
+/* =====================================================
+   2. RESET E BASE
+   ===================================================== */
+
+/* * = todos os elementos. ::before e ::after = elementos "virtuais" criados pelo CSS.
+   box-sizing: border-box → width inclui padding e borda (facilita calcular tamanhos).
+   margin/padding: 0 → remove os espaçamentos padrão que cada navegador aplica. */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* scroll-behavior: smooth → rolagem suave ao clicar nos links do menu.
+   scroll-padding-top: 72px → deixa um espaço no topo ao rolar, para o cabeçalho fixo não cobrir o título. */
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+/* font-family: fonte do texto. background: cor de fundo. color: cor do texto.
+   line-height: 1.6 → altura da linha (1,6 vezes o tamanho da fonte), melhora a leitura. */
+body { font-family: var(--fonte-texto); background: var(--fundo); color: var(--tinta); line-height: 1.6; }
+
+/* max-width: 100% → imagens nunca ultrapassam a largura da tela. display: block → remove espaço extra embaixo. */
+img, svg { max-width: 100%; display: block; }
+
+/* color: inherit → o link usa a cor do texto ao redor, em vez do azul padrão. */
+a { color: inherit; }
+
+/* Títulos usam a fonte de título; line-height menor deixa títulos mais compactos. */
+h1, h2, h3 { font-family: var(--fonte-titulo); line-height: 1.1; }
+
+/* :focus-visible → aplica ao elemento focado pelo TECLADO (tecla Tab).
+   outline: contorno visível. outline-offset: distância entre o contorno e o elemento. */
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 3px; }
+
+/* .container → caixa que centraliza o conteúdo.
+   width: min(1100px, 100% - 2rem) → usa o MENOR valor: no máximo 1100px, ou a tela menos 2rem de margem.
+   margin-inline: auto → margens automáticas à esquerda e à direita = centraliza. */
+.container { width: min(1100px, 100% - 2rem); margin-inline: auto; }
+
+/* .secao → espaço de 4,5rem em cima e embaixo de cada seção (rem = tamanho da fonte base, 16px). */
+.secao { padding: 4.5rem 0; }
+
+/* clamp(mínimo, ideal, máximo) → tamanho que cresce com a tela (4vw = 4% da largura) sem passar dos limites. */
+.secao h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 1rem; }
+
+/* max-width: 55ch → limita a largura a ~55 caracteres (linhas curtas são mais fáceis de ler). */
+.intro { color: var(--suave); max-width: 55ch; margin-bottom: 2.5rem; }
+
+/* ----- Botões -----
+   display: inline-block → fica na linha do texto, mas aceita padding e largura.
+   padding: espaço interno (vertical horizontal).
+   border-radius: 999px → bordas totalmente arredondadas (formato de pílula).
+   font-weight: 700 → negrito. text-decoration: none → tira o sublinhado do link.
+   border: 0 → remove a borda padrão do <button>. cursor: pointer → mãozinha ao passar o mouse.
+   transition → anima a mudança das propriedades em 0,15 segundo. */
+.btn { display: inline-block; padding: .85rem 1.5rem; border-radius: 999px; background: var(--destaque);
+  color: var(--tinta); font-weight: 700; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem;
+  transition: transform .15s ease, background .15s ease; }
+
+/* :hover → quando o mouse está sobre o elemento. translateY(-2px) sobe o botão 2px. */
+.btn:hover { transform: translateY(-2px); background: #ffc94d; }
+
+/* Variação escura do botão (usada junto com .btn no HTML). */
+.btn-escuro { background: var(--tinta); color: var(--branco); }
+.btn-escuro:hover { background: #1d3646; }
+
+/* =====================================================
+   3. CABEÇALHO E MENU
+   ===================================================== */
+
+/* position: sticky → o cabeçalho "gruda" no topo ao rolar. top: 0 → gruda na borda superior.
+   z-index: 10 → fica na frente dos outros elementos. border-bottom: linha fina embaixo. */
+.topo { position: sticky; top: 0; z-index: 10; background: var(--fundo); border-bottom: 1px solid #d3dce1; }
+
+/* display: flex → ativa o Flexbox (itens lado a lado).
+   align-items: center → centraliza na vertical. justify-content: space-between → logo à esquerda e menu à direita. */
+.topo .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+
+.logo { font-family: var(--fonte-titulo); font-weight: 800; font-size: 1.3rem; text-decoration: none; }
+
+/* list-style: none → remove as bolinhas da lista. gap → espaço entre os itens. */
+.menu { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+.menu a { text-decoration: none; font-weight: 500; }
+.menu a:hover { color: var(--verde); }
+
+/* O botão ☰ fica escondido no desktop (display: none) e só aparece no celular (veja o item 10). */
+.hamburguer { display: none; background: none; border: 0; font-size: 1.75rem; cursor: pointer; color: var(--tinta); }
+
+/* =====================================================
+   4. HERO (primeira tela)
+   ===================================================== */
+.hero { padding: 4rem 0 3rem; }
+
+/* display: grid → layout em colunas e linhas.
+   grid-template-columns: 1.1fr .9fr → duas colunas; "fr" divide o espaço disponível em frações. */
+.hero .container { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
+
+/* letter-spacing negativo aproxima as letras do título grande. */
+.hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 1.25rem; }
+.hero p { color: var(--suave); font-size: 1.1rem; max-width: 46ch; margin-bottom: 1.75rem; }
+
+/* ----- Seletor de torra ----- */
+.torra { background: var(--tinta); color: var(--branco); border-radius: var(--raio); padding: 1.5rem; }
+.torra h2 { font-size: 1.1rem; margin-bottom: 1rem; font-weight: 500; font-family: var(--fonte-texto); }
+
+/* repeat(3, 1fr) → três colunas de largura igual para os três botões. */
+.torra-opcoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-bottom: 1.25rem; }
+
+/* background: transparent → sem fundo. font: inherit → o botão usa a mesma fonte da página. */
+.torra-opcoes button { padding: .7rem .25rem; border-radius: 10px; border: 2px solid #3a5062; background: transparent;
+  color: var(--branco); font: inherit; font-weight: 500; cursor: pointer; }
+
+/* [aria-pressed="true"] → seletor de ATRIBUTO: estiliza só o botão selecionado (o JS troca esse atributo). */
+.torra-opcoes button[aria-pressed="true"] { background: var(--destaque); border-color: var(--destaque); color: var(--tinta); }
+
+/* border-radius: 50% → forma oval/redonda. transition: a cor muda suavemente em 0,3 s. */
+.grao { width: 64px; height: 40px; border-radius: 50%; margin-bottom: .75rem; transition: background .3s ease; }
+.torra-nome { font-family: var(--fonte-titulo); font-size: 1.5rem; }
+
+/* min-height: reserva espaço para o texto, evitando que a caixa "pule" ao trocar a torra. */
+.torra-texto { color: #b9c8d2; min-height: 3.2em; }
+
+/* =====================================================
+   5. BENEFÍCIOS
+   ===================================================== */
+.beneficios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.beneficio { border-top: 4px solid var(--verde); padding-top: 1rem; } /* faixa verde no topo de cada item */
+.beneficio h3 { font-size: 1.25rem; margin-bottom: .5rem; }
+.beneficio p { color: var(--suave); }
+
+/* =====================================================
+   6. PLANOS
+   ===================================================== */
+
+/* align-items: stretch → os três cartões ficam com a mesma altura. */
+.planos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; }
+
+/* flex-direction: column → empilha o conteúdo do cartão na vertical. */
+.plano { background: var(--branco); border-radius: var(--raio); padding: 1.75rem; display: flex; flex-direction: column; gap: .75rem; }
+
+/* .plano.popular (sem espaço) → elemento que tem as DUAS classes ao mesmo tempo. */
+.plano.popular { outline: 3px solid var(--destaque); }
+.plano .preco { font-family: var(--fonte-titulo); font-size: 2.2rem; font-weight: 800; }
+.plano .preco small { font-size: 1rem; font-weight: 500; color: var(--suave); }
+
+/* margin-bottom: auto → empurra o botão para o final do cartão, alinhando os três botões. */
+.plano ul { list-style: none; color: var(--suave); display: grid; gap: .4rem; margin-bottom: auto; }
+
+/* ::before cria um elemento virtual antes de cada <li>; content define o que aparece (o "✓"). */
+.plano li::before { content: "✓ "; color: var(--verde); font-weight: 700; }
+
+/* align-self: flex-start → o selo não estica; ocupa só a largura do texto. */
+.selo { align-self: flex-start; background: var(--destaque); font-size: .85rem; font-weight: 700; padding: .15rem .7rem; border-radius: 999px; }
+
+/* =====================================================
+   7. DEPOIMENTOS
+   ===================================================== */
+.depoimentos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+blockquote { background: var(--verde); color: var(--branco); padding: 1.75rem; border-radius: var(--raio); }
+blockquote p { font-size: 1.1rem; margin-bottom: 1rem; }
+blockquote footer { font-size: .95rem; opacity: .85; } /* opacity: transparência (0 a 1) */
+
+/* =====================================================
+   8. CONTATO E FORMULÁRIO
+   ===================================================== */
+.contato .container { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+form { display: grid; gap: 1rem; }
+label { font-weight: 500; display: grid; gap: .35rem; }
+
+/* font: inherit → campos usam a fonte da página (por padrão usariam outra). */
+input, textarea { font: inherit; padding: .75rem; border: 2px solid #c3cfd6; border-radius: 10px; background: var(--branco); color: var(--tinta); }
+
+/* :focus → campo selecionado. outline: none remove o contorno padrão, mas a borda verde o substitui. */
+input:focus, textarea:focus { border-color: var(--verde); outline: none; }
+
+/* min-height reserva a linha da mensagem de erro, para o formulário não "pular" quando ela aparece. */
+.erro { color: #b3261e; font-size: .9rem; min-height: 1.2em; font-weight: 400; }
+
+/* Classe adicionada pelo JavaScript quando o campo é inválido. */
+input.invalido, textarea.invalido { border-color: #b3261e; }
+
+/* display: none → começa escondido; o JS muda para "block" quando o envio dá certo. */
+.sucesso { background: #d9efe6; color: #14503b; padding: 1rem; border-radius: 10px; display: none; font-weight: 500; }
+
+/* =====================================================
+   9. RODAPÉ
+   ===================================================== */
+.rodape { background: var(--tinta); color: #b9c8d2; padding: 2rem 0; font-size: .95rem; }
+
+/* flex-wrap: wrap → se faltar espaço, os itens quebram para a linha de baixo. */
+.rodape .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+/* =====================================================
+   10. RESPONSIVIDADE (media queries)
+   @media (max-width: 860px) → as regras abaixo só valem em telas de até 860px (tablets e celulares).
+   ===================================================== */
+@media (max-width: 860px) {
+  /* 1fr = uma única coluna: tudo passa a ser empilhado. */
+  .hero .container, .contato .container { grid-template-columns: 1fr; gap: 2rem; }
+  .beneficios, .planos, .depoimentos { grid-template-columns: 1fr; }
+
+  /* Mostra o botão ☰. */
+  .hamburguer { display: block; }
+
+  /* O menu vira um painel que cai abaixo do cabeçalho.
+     position: absolute → posicionado em relação ao cabeçalho (que é sticky).
+     top: 64px → logo abaixo da barra. left/right: 0 → ocupa a largura toda.
+     display: none → escondido até o JS adicionar a classe "aberto". */
+  .menu { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--fundo);
+    flex-direction: column; padding: 1.5rem; gap: 1.25rem; border-bottom: 1px solid #d3dce1; }
+
+  /* O JS adiciona "aberto" ao clicar no ☰ → o menu aparece. */
+  .menu.aberto { display: flex; }
+}
+
+/* prefers-reduced-motion: respeita quem desativou animações no sistema (acessibilidade).
+   !important faz esta regra vencer qualquer outra. */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}

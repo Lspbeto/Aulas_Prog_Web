@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!-- DOCTYPE: avisa ao navegador que o arquivo usa HTML5 (sempre a primeira linha) -->
+<html lang="pt-BR">
+<!-- <html>: elemento raiz. lang="pt-BR" informa o idioma (ajuda leitores de tela e o Google) -->
+<head>
+<!-- <head>: informações sobre a página que NÃO aparecem na tela -->
+
+  <meta charset="UTF-8">
+  <!-- charset UTF-8: permite acentos e símbolos (ç, ã, ©) sem quebrar -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- viewport: ESSENCIAL para responsividade. Faz a página usar a largura real do celular
+       em vez de simular uma tela de desktop encolhida -->
+
+  <title>Torra Norte | Café especial torrado em Fortaleza</title>
+  <!-- title: texto da aba do navegador e título que aparece no Google -->
+
+  <meta name="description" content="Cafés especiais torrados toda semana. Assine e receba em casa.">
+  <!-- description: resumo que o Google mostra abaixo do título nos resultados -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- preconnect: abre a conexão com o servidor de fontes antecipadamente, para a página carregar mais rápido -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Importa as fontes do Google Fonts (títulos e texto). display=swap mostra o texto
+       com uma fonte padrão enquanto a fonte nova ainda carrega -->
+
+  <link rel="stylesheet" href="style.css">
+  <!-- Liga o arquivo de estilos. O caminho "style.css" é relativo: o arquivo fica na mesma pasta -->
+</head>
+
+<body>
+<!-- <body>: tudo o que aparece na tela -->
+
+<!-- ================= CABEÇALHO ================= -->
+<header class="topo">
+  <!-- <header>: tag semântica para o topo da página. class="topo" é o "apelido" usado pelo CSS -->
+  <div class="container">
+    <!-- <div>: caixa genérica. "container" limita a largura e centraliza o conteúdo -->
+
+    <a href="#inicio" class="logo">Torra Norte</a>
+    <!-- <a>: link. href="#inicio" leva à seção cujo id é "inicio" (rolagem dentro da própria página) -->
+
+    <button class="hamburguer" id="btn-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">☰</button>
+    <!-- <button>: botão do menu no celular.
+         id="btn-menu": identificador único, usado pelo JavaScript para encontrar o botão.
+         aria-label: texto lido por leitores de tela (o botão só tem um símbolo).
+         aria-expanded: diz se o menu está aberto (false = fechado); o JS atualiza esse valor.
+         aria-controls: informa qual elemento o botão controla (o id "menu") -->
+
+    <ul class="menu" id="menu">
+      <!-- <ul>: lista sem numeração. Cada item fica em um <li> -->
+      <li><a href="#beneficios">Por que nós</a></li>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#depoimentos">Clientes</a></li>
+      <li><a href="#contato" class="btn">Falar com a gente</a></li>
+      <!-- Cada <a href="#...">  rola até a seção com o id correspondente.
+           class="btn" reaproveita o estilo de botão -->
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- <main>: conteúdo principal da página (só pode existir um por página) -->
+
+  <!-- ================= HERO (primeira tela) ================= -->
+  <section class="hero" id="inicio">
+    <!-- <section>: agrupa um assunto da página. id="inicio" é o destino do link do logo -->
+    <div class="container">
+      <div>
+        <h1>Café torrado esta semana, na sua porta.</h1>
+        <!-- <h1>: título principal. Use apenas um por página (importante para SEO) -->
+        <p>Grãos de pequenos produtores do Ceará e de Minas, torrados em Fortaleza e enviados em até 48 horas.</p>
+        <!-- <p>: parágrafo de texto -->
+        <a href="#planos" class="btn">Ver planos</a>
+      </div>
+
+      <div class="torra">
+        <!-- Caixa interativa: o JavaScript preenche nome, texto e cor do grão -->
+        <h2>Qual torra combina com você?</h2>
+        <!-- <h2>: subtítulo. A hierarquia (h1 > h2 > h3) organiza o conteúdo -->
+
+        <div class="torra-opcoes" id="opcoes-torra">
+          <button type="button" data-torra="clara" aria-pressed="true">Clara</button>
+          <button type="button" data-torra="media" aria-pressed="false">Média</button>
+          <button type="button" data-torra="escura" aria-pressed="false">Escura</button>
+          <!-- type="button": evita que o botão envie formulários.
+               data-torra="...": atributo personalizado que guarda a "chave" da torra; o JS lê esse valor.
+               aria-pressed: indica qual botão está selecionado (true/false) -->
+        </div>
+
+        <div class="grao" id="grao"></div>
+        <!-- Círculo que muda de cor. Começa vazio; o JS define a cor -->
+        <p class="torra-nome" id="torra-nome"></p>
+        <p class="torra-texto" id="torra-texto"></p>
+        <!-- Parágrafos vazios: o JS escreve o nome e a descrição da torra neles -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BENEFÍCIOS ================= -->
+  <section class="secao" id="beneficios">
+    <div class="container">
+      <h2>Do produtor à sua xícara</h2>
+      <p class="intro">Cuidamos de cada etapa para o café chegar fresco e com a história de quem o plantou.</p>
+      <div class="beneficios">
+        <article class="beneficio">
+          <!-- <article>: bloco independente de conteúdo (cada benefício faz sentido sozinho) -->
+          <h3>Torra semanal</h3>
+          <p>Torramos em lotes pequenos às segundas e despachamos na terça. Cada pacote traz a data da torra.</p>
+        </article>
+        <article class="beneficio">
+          <h3>Origem rastreável</h3>
+          <p>Você sabe a fazenda, a altitude e o produtor de cada lote que bebe.</p>
+        </article>
+        <article class="beneficio">
+          <h3>Sem fidelidade</h3>
+          <p>Pause, troque de torra ou cancele a assinatura quando quiser, direto pelo WhatsApp.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLANOS ================= -->
+  <section class="secao" id="planos">
+    <div class="container">
+      <h2>Escolha seu plano</h2>
+      <p class="intro">Todos incluem frete grátis para Fortaleza e região metropolitana.</p>
+      <div class="planos">
+        <article class="plano">
+          <h3>Básico</h3>
+          <p class="preco">R$ 39 <small>/mês</small></p>
+          <!-- <small>: texto menor, usado aqui para "/mês" -->
+          <ul><li>1 pacote de 250 g</li><li>Torra à sua escolha</li><li>Entrega mensal</li></ul>
+          <a href="#contato" class="btn btn-escuro">Quero o Básico</a>
+          <!-- Duas classes no mesmo elemento: "btn" (formato) + "btn-escuro" (cor alternativa) -->
+        </article>
+        <article class="plano popular">
+          <!-- "popular" é uma classe extra que destaca o plano com uma borda amarela -->
+          <span class="selo">Mais escolhido</span>
+          <!-- <span>: trecho de texto em linha, sem significado especial; serve para aplicar estilo -->
+          <h3>Casa</h3>
+          <p class="preco">R$ 69 <small>/mês</small></p>
+          <ul><li>2 pacotes de 250 g</li><li>Duas torras diferentes</li><li>Entrega quinzenal</li></ul>
+          <a href="#contato" class="btn">Quero o Casa</a>
+        </article>
+        <article class="plano">
+          <h3>Escritório</h3>
+          <p class="preco">R$ 149 <small>/mês</small></p>
+          <ul><li>1 kg em grãos</li><li>Moagem sob medida</li><li>Entrega semanal</li></ul>
+          <a href="#contato" class="btn btn-escuro">Quero o Escritório</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DEPOIMENTOS ================= -->
+  <section class="secao" id="depoimentos">
+    <div class="container">
+      <h2>Quem já assina</h2>
+      <div class="depoimentos">
+        <blockquote>
+          <!-- <blockquote>: citação de outra pessoa. <footer> dentro dele indica o autor -->
+          <p>Depois que provei a torra clara com notas de frutas, não voltei ao café de mercado.</p>
+          <footer>Marina Costa, designer</footer>
+        </blockquote>
+        <blockquote>
+          <p>O café chega tão fresco que o pacote ainda cheira a torra. Lá no escritório acaba em dois dias.</p>
+          <footer>Rafael Lima, analista</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTATO ================= -->
+  <section class="secao contato" id="contato">
+    <div class="container">
+      <div>
+        <h2>Vamos começar?</h2>
+        <p class="intro">Conte qual plano chamou sua atenção e respondemos em até um dia útil.</p>
+      </div>
+
+      <form id="form" novalidate>
+        <!-- <form>: agrupa os campos. novalidate desliga a validação padrão do navegador,
+             para usarmos a nossa, feita em JavaScript, com mensagens em português -->
+        <label>Nome
+          <!-- <label>: rótulo do campo. Envolver o <input> dentro dele liga os dois
+               (clicar no texto "Nome" já foca o campo) -->
+          <input type="text" id="nome" name="nome" autocomplete="name">
+          <!-- <input type="text">: campo de texto de uma linha.
+               name: nome do campo (o JS acessa por form.nome).
+               autocomplete="name": o navegador sugere o nome salvo do usuário -->
+          <span class="erro" id="erro-nome"></span>
+          <!-- Espaço reservado para a mensagem de erro; o JS preenche quando o campo é inválido -->
+        </label>
+        <label>E-mail
+          <input type="email" id="email" name="email" autocomplete="email">
+          <!-- type="email": no celular, mostra o teclado com "@" -->
+          <span class="erro" id="erro-email"></span>
+        </label>
+        <label>Mensagem
+          <textarea id="mensagem" name="mensagem" rows="4"></textarea>
+          <!-- <textarea>: campo de texto de várias linhas. rows="4" define a altura inicial -->
+          <span class="erro" id="erro-mensagem"></span>
+        </label>
+        <button type="submit" class="btn btn-escuro">Enviar mensagem</button>
+        <!-- type="submit": ao clicar, dispara o evento "submit" do formulário (o JS intercepta) -->
+        <p class="sucesso" id="sucesso" role="status">Mensagem enviada! Responderemos em breve.</p>
+        <!-- Começa oculto pelo CSS. role="status": leitores de tela anunciam o texto quando aparece -->
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <!-- <footer>: rodapé da página -->
+  <div class="container">
+    <span>© 2026 Torra Norte. Projeto fictício de portfólio.</span>
+    <span>Fortaleza, CE</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<!-- Liga o JavaScript. Fica no FINAL do <body> para que todos os elementos acima
+     já existam quando o código tentar encontrá-los -->
+</body>
+</html>

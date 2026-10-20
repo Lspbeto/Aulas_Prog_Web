@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- UTF-8: permite acentos e símbolos -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- viewport: faz a página se ajustar à largura do celular (base da responsividade) -->
+  <title>Minhas tarefas</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Liga o arquivo de estilos (mesma pasta) -->
+</head>
+<body>
+  <main class="app">
+    <!-- <main>: conteúdo principal. "app" é a caixa central do projeto -->
+
+    <h1>Minhas tarefas</h1>
+
+    <!-- FORMULÁRIO DE NOVA TAREFA -->
+    <form id="form-tarefa" class="nova">
+      <!-- Usar <form> permite adicionar a tarefa apertando Enter, sem código extra -->
+      <input type="text" id="campo-tarefa" placeholder="O que você precisa fazer?"
+             maxlength="100" autocomplete="off" aria-label="Nova tarefa">
+      <!-- placeholder: texto de dica. maxlength: limite de 100 caracteres.
+           autocomplete="off": o navegador não sugere textos antigos.
+           aria-label: nome do campo para leitores de tela (não há <label> visível) -->
+      <button type="submit">Adicionar</button>
+      <!-- type="submit": dispara o evento "submit" do formulário -->
+    </form>
+
+    <!-- FILTROS -->
+    <div class="filtros" id="filtros" role="group" aria-label="Filtrar tarefas">
+      <!-- data-filtro guarda qual filtro o botão representa; o JS lê esse valor.
+           aria-pressed indica qual filtro está ativo -->
+      <button type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+      <button type="button" data-filtro="pendentes" aria-pressed="false">Pendentes</button>
+      <button type="button" data-filtro="concluidas" aria-pressed="false">Concluídas</button>
+    </div>
+
+    <!-- LISTA (o JavaScript cria os <li> aqui dentro) -->
+    <ul id="lista" class="lista"></ul>
+
+    <!-- Mensagem exibida quando não há tarefas para mostrar -->
+    <p id="vazio" class="vazio" hidden>Nenhuma tarefa por aqui. Adicione a primeira acima.</p>
+    <!-- hidden: atributo HTML que esconde o elemento; o JS o liga e desliga -->
+
+    <!-- RODAPÉ: contador e botão de limpar -->
+    <div class="rodape">
+      <span id="contador" aria-live="polite"></span>
+      <!-- aria-live="polite": leitores de tela anunciam quando o texto muda -->
+      <button type="button" id="limpar" class="link">Limpar concluídas</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <!-- No final do <body> para que os elementos acima já existam quando o JS rodar -->
+</body>
+</html>
