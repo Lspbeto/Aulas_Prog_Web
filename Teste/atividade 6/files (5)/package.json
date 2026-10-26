@@ -1,0 +1,12 @@
+{
+  "name": "lista-tarefas",
+  "version": "1.0.0",
+  "description": "Exemplo simples de back-end + front-end",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

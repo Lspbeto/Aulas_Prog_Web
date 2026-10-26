@@ -1,0 +1,10 @@
+meu-projeto-express/
+│
+├── node_modules/
+├── uploads/              <-- (Crie esta pasta)
+│   └── documento.pdf     <-- (Ficheiro de exemplo para teste)
+├── package.json
+├── index.html
+├── style.css
+├── script.js
+└── server.js
