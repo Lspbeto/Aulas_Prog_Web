@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed - Rede Social</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h3>Rede Social</h3>
+        <div>
+            <span id="userDisplay" style="margin-right: 15px; font-weight: bold;"></span>
+            <button id="logoutBtn" class="btn-secondary">Sair</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Feed de publicações -->
+        <main class="feed-container">
+            <div class="card">
+                <form id="postForm">
+                    <textarea id="postContent" rows="3" placeholder="No que você está pensando?" required></textarea>
+                    <div style="text-align: right; margin-top: 8px;">
+                        <button type="submit">Publicar</button>
+                    </div>
+                </form>
+            </div>
+            <div id="postsList"></div>
+        </main>
+
+        <!-- Painel lateral de usuários (Status Online/Offline) -->
+        <aside class="sidebar">
+            <h4>Membros</h4>
+            <ul id="usersList"></ul>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

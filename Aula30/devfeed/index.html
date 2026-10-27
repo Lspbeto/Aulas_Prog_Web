@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- Documento HTML5, idioma português do Brasil -->
+<html lang="pt-BR">
+<head>
+    <!-- Codificação de caracteres (acentos) -->
+    <meta charset="UTF-8">
+    <!-- Faz a página se ajustar a telas de celular -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título exibido na aba do navegador -->
+    <title>DevFeed</title>
+    <!-- Carrega o arquivo de estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Caixa central que limita a largura do conteúdo -->
+<div class="container">
+    <!-- Título principal da página -->
+    <h1>DevFeed</h1>
+
+    <!-- TELA DE AUTENTICAÇÃO (LOGIN / CADASTRO) -->
+    <div id="auth-screen" class="card">
+        <!-- Título que muda entre "Entrar" e "Criar Nova Conta" (controlado pelo script.js) -->
+        <h3 id="auth-title">Entrar na Conta</h3>
+        <!-- Campo de nome de usuário -->
+        <input type="text" id="authUsername" placeholder="Usuário">
+        <!-- Campo de senha (os caracteres ficam ocultos) -->
+        <input type="password" id="authPassword" placeholder="Senha">
+        <!-- Botão que chama handleAuth() para entrar ou cadastrar -->
+        <button id="auth-btn" onclick="handleAuth()">Entrar</button>
+        <!-- Texto com link para alternar entre login e cadastro -->
+        <p style="margin-top: 15px; text-align: center; font-size: 14px;">
+            <!-- Pergunta exibida antes do link -->
+            <span id="auth-switch-text">Não tem uma conta?</span>
+            <!-- Link que chama toggleAuthMode() -->
+            <a href="#" onclick="toggleAuthMode()" id="auth-switch-link" style="color: #1877f2; text-decoration: none; font-weight: bold;">Cadastre-se</a>
+        </p>
+    </div>
+
+    <!-- APLICAÇÃO PRINCIPAL (oculta até o login) -->
+    <div id="app-screen" style="display: none;">
+        <!-- Barra com o nome do usuário e o botão Sair -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <!-- Mostra quem está logado (preenchido pelo script.js) -->
+            <span>Logado como: <strong id="loggedUser"></strong></span>
+            <!-- Botão que chama logout() -->
+            <button onclick="logout()" style="width: auto; padding: 5px 10px; background-color: #e4e6eb; color: #1c1e21;">Sair</button>
+        </div>
+
+        <!-- FORMULÁRIO DE NOVA PUBLICAÇÃO -->
+        <div class="card">
+            <h3>Criar Publicação</h3>
+            <!-- Área de texto do post (máximo de 1000 caracteres; Ctrl+Enter publica) -->
+            <textarea id="postContent" maxlength="1000" placeholder="No que você está pensando?"></textarea>
+            <!-- Botão que chama createPost() -->
+            <button onclick="createPost()">Publicar</button>
+        </div>
+
+        <!-- FEED DE POSTS (preenchido pelo script.js) -->
+        <div id="feed"></div>
+    </div>
+</div>
+
+<!-- Carrega a lógica da página (no fim do body, para o HTML já existir) -->
+<script src="script.js"></script>
+</body>
+</html>

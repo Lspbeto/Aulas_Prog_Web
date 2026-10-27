@@ -1,0 +1,211 @@
+/* ============================================ */
+/* DevFeed - ESTILOS                            */
+/* ============================================ */
+
+/* Reset: aplica a todos os elementos */
+* {
+    box-sizing: border-box;   /* padding e borda entram na largura total */
+    margin: 0;                /* remove margens padrão do navegador */
+    padding: 0;               /* remove espaçamentos padrão do navegador */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fonte da página */
+}
+
+/* Corpo da página */
+body {
+    background-color: #f0f2f5;  /* cinza claro de fundo */
+    color: #1c1e21;             /* cor padrão do texto */
+    display: flex;              /* permite centralizar o conteúdo */
+    justify-content: center;    /* centraliza na horizontal */
+    padding: 20px;              /* respiro nas bordas da tela */
+}
+
+/* Caixa central do conteúdo */
+.container {
+    width: 100%;        /* ocupa a largura disponível... */
+    max-width: 600px;   /* ...até no máximo 600px */
+}
+
+/* Título principal */
+h1 {
+    text-align: center;   /* centraliza o texto */
+    margin-bottom: 20px;  /* espaço abaixo */
+    color: #1877f2;       /* azul da marca */
+}
+
+/* Cartão branco (login, novo post e cada post do feed) */
+.card {
+    background: white;                          /* fundo branco */
+    padding: 15px;                              /* espaço interno */
+    border-radius: 8px;                         /* cantos arredondados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);   /* sombra leve */
+    margin-bottom: 20px;                        /* espaço entre cartões */
+}
+
+/* Campos de texto e botões compartilham a mesma base */
+input, textarea, button {
+    width: 100%;                /* ocupam toda a largura */
+    margin-top: 10px;           /* espaço acima */
+    padding: 10px;              /* espaço interno */
+    border: 1px solid #ddd;     /* borda cinza clara */
+    border-radius: 6px;         /* cantos arredondados */
+    font-size: 14px;            /* tamanho da fonte */
+}
+
+/* Área de texto do post */
+textarea {
+    resize: vertical;   /* só permite redimensionar na vertical */
+    height: 80px;       /* altura inicial */
+}
+
+/* Botão padrão (azul) */
+button {
+    background-color: #1877f2;      /* fundo azul */
+    color: white;                   /* texto branco */
+    font-weight: bold;              /* texto em negrito */
+    border: none;                   /* sem borda */
+    cursor: pointer;                /* mãozinha ao passar o mouse */
+    transition: background 0.2s;    /* suaviza a troca de cor */
+}
+
+/* Botão padrão ao passar o mouse */
+button:hover {
+    background-color: #166fe5;      /* azul um pouco mais escuro */
+}
+
+/* Nome do autor do post */
+.post-author {
+    font-weight: bold;      /* negrito */
+    margin-bottom: 5px;     /* espaço abaixo */
+    color: #050505;         /* quase preto */
+}
+
+/* Texto do post */
+.post-content {
+    margin-bottom: 12px;    /* espaço abaixo */
+    font-size: 15px;        /* tamanho da fonte */
+}
+
+/* Área de comentários de um post */
+.comments-section {
+    border-top: 1px solid #e4e6eb;  /* linha separadora no topo */
+    padding-top: 10px;              /* espaço interno acima */
+    margin-top: 10px;               /* espaço externo acima */
+}
+
+/* Um comentário */
+.comment {
+    background: #f0f2f5;    /* fundo cinza claro */
+    padding: 8px 12px;      /* espaço interno */
+    border-radius: 12px;    /* cantos bem arredondados */
+    margin-bottom: 6px;     /* espaço entre comentários */
+    font-size: 13px;        /* fonte menor */
+}
+
+/* Nome do autor do comentário */
+.comment-author {
+    font-weight: bold;      /* negrito */
+    margin-right: 5px;      /* espaço antes do texto */
+}
+
+/* Linha com o campo e o botão de comentar */
+.comment-form {
+    display: flex;  /* campo e botão lado a lado */
+    gap: 5px;       /* espaço entre eles */
+}
+
+/* Campo de comentário: remove a margem superior padrão */
+.comment-form input {
+    margin-top: 0;
+}
+
+/* Botão de comentar: largura automática e sem margem superior */
+.comment-form button {
+    margin-top: 0;
+    width: auto;
+    padding: 0 15px;
+}
+
+/* ============================================ */
+/* Curtir, apagar e datas                       */
+/* ============================================ */
+
+/* Cabeçalho do post: autor/data à esquerda, botão Apagar à direita */
+.post-header {
+    display: flex;                  /* itens lado a lado */
+    justify-content: space-between; /* um em cada ponta */
+    align-items: flex-start;        /* alinhados ao topo */
+    gap: 10px;                      /* espaço mínimo entre eles */
+}
+
+/* Data do post */
+.post-date {
+    font-size: 12px;    /* fonte pequena */
+    color: #65676b;     /* cinza */
+}
+
+/* Área do botão de curtir */
+.post-actions {
+    margin-bottom: 4px;
+}
+
+/* Estes botões herdam width:100% do estilo global, então sobrescrevemos aqui */
+.like-btn,
+.delete-btn,
+.icon-btn {
+    width: auto;        /* largura conforme o conteúdo */
+    margin-top: 0;      /* sem margem superior */
+}
+
+/* Botão de curtir (estilo discreto) */
+.like-btn {
+    background: transparent;    /* sem fundo */
+    color: #65676b;             /* cinza */
+    padding: 6px 10px;          /* espaço interno */
+}
+
+/* Botão de curtir ao passar o mouse */
+.like-btn:hover {
+    background: #f0f2f5;        /* fundo cinza claro */
+}
+
+/* Botão de curtir quando o usuário já curtiu */
+.like-btn.liked {
+    color: #e0245e;             /* vermelho/rosa */
+}
+
+/* Botão de apagar post */
+.delete-btn {
+    background: #e4e6eb;        /* fundo cinza */
+    color: #1c1e21;             /* texto escuro */
+    padding: 5px 10px;          /* espaço interno */
+    font-size: 12px;            /* fonte pequena */
+}
+
+/* Botão de apagar post ao passar o mouse */
+.delete-btn:hover {
+    background: #f7d4d4;        /* fundo avermelhado */
+    color: #b00020;             /* texto vermelho */
+}
+
+/* Botão "×" de apagar comentário */
+.icon-btn {
+    background: transparent;    /* sem fundo */
+    color: #65676b;             /* cinza */
+    padding: 0 6px;             /* espaço interno lateral */
+    margin-left: 4px;           /* afasta do texto */
+    font-size: 16px;            /* tamanho do "×" */
+    line-height: 1;             /* altura de linha compacta */
+}
+
+/* Botão "×" ao passar o mouse */
+.icon-btn:hover {
+    background: transparent;    /* mantém sem fundo */
+    color: #b00020;             /* vermelho */
+}
+
+/* Mensagem de feed vazio */
+.empty {
+    text-align: center;     /* centralizada */
+    color: #65676b;         /* cinza */
+    padding: 20px 0;        /* espaço acima e abaixo */
+}
