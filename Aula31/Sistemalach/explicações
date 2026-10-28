@@ -1,0 +1,29 @@
+Explicação dos Comandos, Métodos e Conceitos
+A. Dependências e Configuração Básica
+const express = require('express');: Importa o framework Express, responsável por gerenciar rotas, requisições HTTP e middlewares de forma limpa no Node.js.
+
+app.use(express.json());: Um middleware nativo do Express que converte o corpo (body) das requisições HTTP recebidas em formato JSON para objetos JavaScript acessíveis via req.body.
+
+B. Middlewares de Segurança e Permissão (verifyAdmin e verifyStaff)
+Middlewares são funções que interceptam a requisição antes de ela chegar à rota final.
+
+req.user = user;: Anexa os dados do usuário autenticado ao objeto da requisição para sabermos exatamente qual operador ou administrador executou a ação.
+
+next(): Comando fundamental que autoriza o fluxo a prosseguir para a próxima função (a rota desejada). Se omitido, a requisição trava esperando uma resposta.
+
+Verificação de Papéis (role === 'admin'): Garante o controle de acesso baseado em privilégios (RBAC), bloqueando operadores de mexerem no cadastro de produtos ou visualizarem relatórios financeiros completos.
+
+C. Métodos HTTP Utilizados
+app.get(...): Utilizado para buscar dados (consultar estoque com /products ou relatórios de vendas com /sales).
+
+app.post(...): Utilizado para criar novos registros ou executar ações que alteram o estado do sistema (como efetuar login, cadastrar produtos ou registrar uma nova venda).
+
+D. Lógica de Negócio (Estoque e Vendas)
+Validação prévia de estoque: Antes de descontar qualquer produto na rota de vendas, o código faz um loop de validação (for...of) para garantir que há saldo suficiente em todos os itens do carrinho. Caso falte um item, a venda é abortada inteira (princípio de consistência).
+
+Array.prototype.find(): Método JavaScript utilizado para buscar elementos dentro dos arrays users e inventory com base em condições específicas (como ID ou nome).
+
+Array.prototype.reduce(): Utilizado no relatório de vendas para somar o faturamento total (totalRevenue) acumulando os valores de todas as vendas registradas.
+
+Como testar a API
+Você pode utilizar ferramentas como Postman, Insomnia ou comandos via Terminal (cURL):

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caixa da Lanchonete</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <main id="login-view" class="login">
+    <form id="login-form" class="login-card">
+      <h1>Caixa da Lanchonete</h1>
+      <p class="muted">Entre com seu usuário para abrir o caixa.</p>
+      <label>Usuário <input name="username" autocomplete="username" required></label>
+      <label>Senha <input name="password" type="password" autocomplete="current-password" required></label>
+      <p id="login-error" class="error" role="alert"></p>
+      <button class="btn primary" type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <!-- APLICAÇÃO -->
+  <div id="app-view" hidden>
+    <header class="topbar">
+      <strong class="brand">Caixa da Lanchonete</strong>
+      <nav id="tabs" class="tabs" aria-label="Seções">
+        <button class="tab active" data-tab="pdv">Vender</button>
+        <button class="tab admin-only" data-tab="dashboard">📊 Dashboard</button>
+        <button class="tab admin-only" data-tab="stock">Estoque</button>
+        <button class="tab admin-only" data-tab="users">Usuários</button>
+        <button class="tab admin-only" data-tab="report">Vendas</button>
+      </nav>
+      <div class="user">
+        <span id="user-label"></span>
+        <button id="logout" class="btn ghost">Sair</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- VENDER (PDV) -->
+      <section id="tab-pdv" class="panel pdv">
+        <div>
+          <h2>Produtos</h2>
+          <div id="product-grid" class="grid"></div>
+        </div>
+        <aside class="cart">
+          <h2>Pedido</h2>
+          <ul id="cart-list" class="cart-list"></ul>
+          <div class="total"><span>Total</span><strong id="cart-total">R$ 0,00</strong></div>
+          <button id="finish-sale" class="btn primary block" disabled>Finalizar venda</button>
+          <button id="clear-cart" class="btn ghost block">Limpar pedido</button>
+        </aside>
+      </section>
+
+      <!-- DASHBOARD / RELATÓRIO NA TELA (admin) -->
+      <section id="tab-dashboard" class="panel" hidden>
+        <h2>Dashboard Executivo</h2>
+        <p class="muted">Visão dinâmica e instantânea do desempenho do negócio.</p>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="muted">Faturamento Total</span>
+            <strong id="dash-revenue">R$ 0,00</strong>
+          </div>
+          <div class="metric-card">
+            <span class="muted">Total de Vendas</span>
+            <strong id="dash-count">0</strong>
+          </div>
+          <div class="metric-card">
+            <span class="muted">Ticket Médio</span>
+            <strong id="dash-avg">R$ 0,00</strong>
+          </div>
+          <div class="metric-card">
+            <span class="muted">Itens com Estoque Baixo</span>
+            <strong id="dash-low-stock" class="text-red">0</strong>
+          </div>
+        </div>
+
+        <div class="dashboard-split" style="margin-top: 2rem;">
+          <div class="sub-panel">
+            <h3>Produtos Mais Vendidos</h3>
+            <ul id="dash-top-products" class="simple-list"></ul>
+          </div>
+          <div class="sub-panel">
+            <h3>Atividade Recente</h3>
+            <ul id="dash-recent-sales" class="simple-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ESTOQUE (admin) -->
+      <section id="tab-stock" class="panel" hidden>
+        <div class="panel-header">
+          <h2>Controle de Estoque</h2>
+          <button id="print-stock" class="btn">🖨️ Imprimir Relatório em PDF</button>
+        </div>
+        <form id="product-form" class="inline-form" style="margin-top: 1rem;">
+          <label>Nome <input name="name" required></label>
+          <label>Preço (R$) <input name="price" type="number" step="0.01" min="0" required></label>
+          <label>Quantidade <input name="stock" type="number" step="1" min="0" required></label>
+          <button class="btn primary" type="submit">Salvar produto</button>
+        </form>
+        <table class="table">
+          <thead><tr><th>ID</th><th>Produto</th><th class="num">Preço</th><th class="num">Qtd. Estoque</th></tr></thead>
+          <tbody id="stock-body"></tbody>
+        </table>
+      </section>
+
+      <!-- USUÁRIOS (admin) -->
+      <section id="tab-users" class="panel" hidden>
+        <h2>Gerenciamento de Usuários</h2>
+        <form id="user-form" class="inline-form" style="margin-top: 1rem;">
+          <label>Usuário <input name="username" required></label>
+          <label>Senha <input name="password" type="password" required></label>
+          <label>Perfil 
+            <select name="role" required>
+              <option value="operator">Operador</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </label>
+          <button class="btn primary" type="submit">Cadastrar Usuário</button>
+        </form>
+        <div class="panel-header" style="margin-top: 2rem;">
+          <h3>Usuários Cadastrados</h3>
+          <button id="print-users" class="btn">🖨️ Imprimir Relatório em PDF</button>
+        </div>
+        <table class="table" style="margin-top: 1rem;">
+          <thead><tr><th>ID</th><th>Usuário</th><th>Perfil</th></tr></thead>
+          <tbody id="users-body"></tbody>
+        </table>
+      </section>
+
+      <!-- VENDAS (admin) -->
+      <section id="tab-report" class="panel" hidden>
+        <div class="panel-header">
+          <h2>Histórico e Gestão de Vendas</h2>
+          <button id="print-sales" class="btn">🖨️ Imprimir Relatório em PDF</button>
+        </div>
+        <div class="summary">
+          <div><span class="muted">Vendas</span><strong id="sum-count">0</strong></div>
+          <div><span class="muted">Faturamento</span><strong id="sum-revenue">R$ 0,00</strong></div>
+        </div>
+        <div id="sales-list" class="sales-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL DE EDIÇÃO -->
+  <div id="sale-modal" class="modal-overlay" hidden>
+    <div class="modal-card">
+      <h2>Alterar Venda #<span id="modal-sale-id"></span></h2>
+      <form id="edit-sale-form">
+        <div id="modal-items-container" class="modal-items"></div>
+        <div class="modal-actions">
+          <button type="button" id="close-modal" class="btn ghost">Cancelar</button>
+          <button type="submit" class="btn primary">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
