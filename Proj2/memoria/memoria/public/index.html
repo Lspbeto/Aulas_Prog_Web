@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memória</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topo">
+  <h1>Memória</h1>
+  <p>Ensine textos. Pergunte depois.</p>
+  <span id="modo" class="modo"></span>
+</header>
+
+<main class="grade">
+  <section class="ensinar" aria-labelledby="t-ensinar">
+    <h2 id="t-ensinar">Ensinar</h2>
+    <form id="form-ensinar">
+      <label for="titulo">Título</label>
+      <input id="titulo" placeholder="Ex.: Manual da empresa">
+      <label for="texto">Texto</label>
+      <textarea id="texto" rows="7" placeholder="Cole aqui o conteúdo que a Memória deve aprender"></textarea>
+      <div class="acoes">
+        <button type="submit">Ensinar texto</button>
+        <label class="arquivo">Enviar arquivos
+          <input id="arquivos" type="file" accept=".txt,.md,.csv,.json,.html" multiple hidden>
+        </label>
+      </div>
+      <p id="aviso" role="status" class="aviso"></p>
+    </form>
+
+    <h2>O que ela sabe</h2>
+    <ul id="fontes" class="fontes"></ul>
+  </section>
+
+  <section class="conversa" aria-labelledby="t-conversa">
+    <h2 id="t-conversa">Perguntar</h2>
+    <div id="log" class="log" aria-live="polite">
+      <p class="vazio">Faça uma pergunta sobre os textos que você ensinou.</p>
+    </div>
+    <form id="form-perguntar" class="pergunta">
+      <input id="pergunta" placeholder="Digite sua pergunta" autocomplete="off" aria-label="Pergunta">
+      <button type="submit">Perguntar</button>
+    </form>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

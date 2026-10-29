@@ -1,0 +1,63 @@
+:root {
+  --fundo: #e8edef;
+  --painel: #f7f9f9;
+  --tinta: #14262e;
+  --suave: #55696f;
+  --linha: #b9c6cb;
+  --acento: #17606b;
+  --marca: #f4d35e;
+  --erro: #a3342b;
+  --ui: system-ui, "Segoe UI", Roboto, sans-serif;
+  --leitura: "Iowan Old Style", Georgia, "Times New Roman", serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fundo); color: var(--tinta); font: 16px/1.5 var(--ui); }
+
+.topo { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; padding: 1.5rem clamp(1rem, 4vw, 3rem) 0; }
+.topo h1 { margin: 0; font: 700 2.2rem/1 var(--leitura); letter-spacing: -.02em; }
+.topo p { margin: 0; color: var(--suave); }
+.modo { margin-left: auto; font-size: .85rem; color: var(--suave); }
+
+.grade { display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 1.5rem;
+  padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem; align-items: start; }
+@media (max-width: 800px) { .grade { grid-template-columns: 1fr; } }
+
+section { background: var(--painel); border: 1px solid var(--linha); border-radius: 6px; padding: 1.25rem; }
+h2 { margin: 0 0 .75rem; font: 600 1.05rem/1.2 var(--ui); }
+h2:not(:first-child) { margin-top: 1.5rem; }
+
+label { display: block; font-size: .9rem; color: var(--suave); margin: .75rem 0 .25rem; }
+input, textarea { width: 100%; font: inherit; color: inherit; background: #fff; border: 1px solid var(--linha);
+  border-radius: 4px; padding: .55rem .7rem; }
+textarea { resize: vertical; }
+:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+button, .arquivo { font: 600 .95rem var(--ui); border-radius: 4px; padding: .55rem 1rem; cursor: pointer;
+  border: 1px solid var(--acento); background: var(--acento); color: #fff; margin: 0; display: inline-block; }
+.arquivo { background: transparent; color: var(--acento); }
+button:hover { background: #124c55; }
+button:disabled { opacity: .55; cursor: wait; }
+.acoes { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .9rem; }
+.aviso { min-height: 1.4em; margin: .6rem 0 0; font-size: .9rem; color: var(--acento); }
+.aviso.erro { color: var(--erro); }
+
+.fontes { list-style: none; margin: 0; padding: 0; }
+.fontes li { display: flex; gap: .5rem; align-items: center; padding: .55rem 0; border-top: 1px solid var(--linha); }
+.fontes .nome { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.fontes small { display: block; color: var(--suave); }
+.fontes button { background: transparent; color: var(--erro); border-color: var(--linha); padding: .3rem .6rem; font-size: .85rem; }
+.fontes button:hover { background: #f3dedb; }
+.fontes .vazio, .log .vazio { color: var(--suave); border: 0; }
+
+.log { min-height: 320px; max-height: 60vh; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-bottom: .5rem; }
+.eu { align-self: flex-end; max-width: 80%; background: var(--tinta); color: #fff; padding: .55rem .9rem; border-radius: 14px 14px 2px 14px; }
+.ela { max-width: 70ch; font-family: var(--leitura); font-size: 1.05rem; line-height: 1.65; }
+.ela p { margin: 0 0 .6rem; white-space: pre-wrap; }
+.ela blockquote { margin: 0 0 .6rem; padding: .1rem .5rem; background: linear-gradient(transparent 12%, var(--marca) 12%, var(--marca) 92%, transparent 92%);
+  display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.ela .bloco { display: block; margin-bottom: .6rem; }
+.ela .de { display: block; font: .8rem var(--ui); color: var(--suave); margin-top: .2rem; }
+.ela .fonte { font: .85rem var(--ui); color: var(--suave); border-top: 1px solid var(--linha); padding-top: .4rem; }
+
+.pergunta { display: flex; gap: .6rem; margin-top: 1rem; }
+.pergunta input { flex: 1; }

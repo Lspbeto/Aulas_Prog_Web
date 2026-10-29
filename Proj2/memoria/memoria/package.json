@@ -1,0 +1,8 @@
+{
+  "name": "memoria",
+  "version": "1.0.0",
+  "description": "IA local portátil que aprende com textos",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
