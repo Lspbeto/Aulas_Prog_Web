@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Portátil & Auto-Modificável</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Nexus AI Core</h1>
+            <p>Ambiente portátil com persistência e auto-evolução de código.</p>
+        </header>
+
+        <main class="grid">
+            <section class="panel">
+                <h2>💬 Chat & Comandos</h2>
+                <div id="chat-box" class="chat-box"></div>
+                <div class="input-group">
+                    <input type="text" id="user-input" placeholder="Digite um comando ou instrução..." />
+                    <button id="send-btn">Enviar</button>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>🧬 Editor de Código & Módulos</h2>
+                <div class="file-selector">
+                    <select id="module-select">
+                        <option value="">Selecione ou crie um módulo...</option>
+                    </select>
+                    <button id="new-file-btn">+ Novo Módulo</button>
+                </div>
+                <input type="text" id="file-name-input" placeholder="nome_do_modulo.js" />
+                <textarea id="code-editor" placeholder="// Escreva ou gere o código aqui para salvar no próprio sistema..."></textarea>
+                <button id="save-code-btn">💾 Salvar Alterações no Código</button>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
