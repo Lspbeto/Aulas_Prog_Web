@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lindomberto Pinto | Portfólio TI & Dev</title>
+    <!-- ALTERAÇÃO: o CSS foi movido para frontend/css/, então o caminho mudou de "style.css" para "css/style.css" -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">&lt;Lindomberto.TI /&gt;</div>
+            
+        <nav>
+            <a href="#sobre">Sobre</a>
+            <a href="#experiencia">Experiência</a>
+            <a href="#projetos">Projetos & Áreas</a>
+            <a href="#contato">Contato</a>
+            <button id="toggle-theme" class="btn-theme" aria-label="Alternar Tema">🌙</button>
+        </nav>
+    </header>
+
+
+    
+    <section id="hero">
+        <h1>Olá, sou <span id="typewriter" class="highlight"></span><span class="cursor">|</span></h1>
+        <p id="hero-sub">Unindo 10 anos de experiência em Suporte e Infraestrutura à inovação do Desenvolvimento de Sistemas.</p>
+        <div class="hero-btns">
+            <a href="#projetos" class="btn">Ver Atuação</a>
+            <a href="#contato" class="btn btn-outline">Fale Comigo</a>
+        </div>
+    </section>
+
+    <section id="sobre" class="reveal">
+        <h2>Sobre Mim</h2>
+        <p id="sobre-texto">Carregando perfil...</p>
+        <div class="skills-box">
+            <h3>Habilidades Técnicas</h3>
+            <div class="skills" id="container-skills">
+                <span>Suporte Nível 1 e 2</span>
+                <span>Hardware & Redes</span>
+                <span>JavaScript</span>
+                <span>Java & PHP</span>
+                <span>HTML / CSS</span>
+                <span>SQL</span>
+                <span>Energia Solar</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia" class="reveal">
+        <h2>Trajetória Profissional</h2>
+        <div class="timeline" id="container-experiencia"></div>
+    </section>
+
+    <section id="projetos" class="reveal">
+        <h2>Áreas de Atuação & Projetos</h2>
+        <div class="filtros">
+            <button class="btn-filtro active" data-categoria="todos">Todos</button>
+            <button class="btn-filtro" data-categoria="suporte">Suporte & Hardware</button>
+            <button class="btn-filtro" data-categoria="desenvolvimento">Desenvolvimento</button>
+            <button class="btn-filtro" data-categoria="infra">Infraestrutura</button>
+        </div>
+        <div id="container-projetos" class="grid-projetos"></div>
+    </section>
+
+    <section id="certificados" class="reveal">
+        <h2>Certificados & Cursos (Senai)</h2>
+        <ul id="lista-certificados" class="cert-list"></ul>
+    </section>
+
+    <section id="contato" class="reveal">
+        <h2>Contato Profissional</h2>
+        <p>Entre em contato para oportunidades em Suporte Técnico, Infraestrutura ou Desenvolvimento.</p>
+        <form id="form-contato">
+            <input type="text" id="nome" placeholder="Seu Nome" required>
+            <input type="email" id="email" placeholder="Seu E-mail" required>
+            <textarea id="mensagem" placeholder="Sua Mensagem" rows="5" required></textarea>
+            <button type="submit" class="btn">Enviar Mensagem</button>
+        </form>
+        <p id="resposta-form"></p>
+    </section>
+
+    <footer>
+        <p id="footer-info">&copy; 2026 - Fortaleza, CE | Lindomberto de Souza Pinto</p>
+    </footer>
+
+    <!-- ALTERAÇÃO: o JS foi movido para frontend/js/, então o caminho mudou de "script.js" para "js/script.js" -->
+    <script src="js/script.js"></script>
+</body>
+</html>
