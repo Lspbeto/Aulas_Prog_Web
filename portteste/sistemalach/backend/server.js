@@ -10,6 +10,8 @@
 //   - front -> ../frontend (pasta irmã)
 // ============================================================
 const express = require('express');
+const cors = require('cors')
+
 const path = require('path');
 
 // Importa as rotas da API (separadas em routes/api.js)
@@ -20,16 +22,26 @@ const PORT = process.env.PORT || 3000;
 
 // Middlewares para parsing de JSON e dados de formulários
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // ALTERAÇÃO: antes os arquivos estáticos ficavam em "public" (dentro do mesmo projeto).
 // Agora o front é uma pasta paralela ao backend, então subimos um nível com '..'
-// e apontamos para "frontend". __dirname = backend/, logo ../frontend = sistemalach/frontend.
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// // e apontamos para "frontend". __dirname = backend/, logo ../frontend = sistemalach/frontend.
+// app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // Todas as rotas da API ficam sob o prefixo /api (/api/dados e /api/contato).
 // As URLs não mudaram, por isso o script.js do front continua funcionando igual.
 app.use('/api', apiRoutes);
+
+
+
+app.get("/dados", (req, res)=>{
+    console.log("TO dentro do GET DADOS")
+    return "deu certo"
+
+})
+
 
 // Inicialização do Servidor
 app.listen(PORT, () => {
