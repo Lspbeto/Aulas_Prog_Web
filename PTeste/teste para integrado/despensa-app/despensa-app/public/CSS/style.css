@@ -1,0 +1,454 @@
+/* ==========================================================================
+   SISTEMA DE GESTÃO E DESPENSA - style.css
+   Caminho esperado: ./CSS/style.css (igual ao <link> do index.html)
+   ========================================================================== */
+
+/* ---------- 1. VARIÁVEIS (cores, fontes, medidas) ---------- */
+:root {
+  --fundo: #edf0ea;
+  --superficie: #ffffff;
+  --tinta: #1b2a23;
+  --tinta-suave: #5a6b61;
+  --linha: #d3dbd1;
+  --linha-forte: #b5c1b4;
+
+  --pinho: #2d5a44;
+  --pinho-escuro: #214536;
+  --pinho-claro: #e1ece4;
+
+  --perigo: #b3261e;
+  --sucesso: #2e7d32;
+
+  --fonte-texto: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fonte-titulo: Georgia, "Times New Roman", serif;
+
+  --raio-card: 12px;
+  --raio-campo: 6px;
+}
+
+/* ---------- 2. BASE ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: var(--fonte-texto);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#painel-principal {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1,
+h2 {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin: 0 0 8px;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+.sub {
+  color: var(--tinta-suave);
+  margin: 0 0 16px;
+}
+
+/* Classe usada pelo JavaScript para esconder/mostrar telas */
+.hidden {
+  display: none !important;
+}
+
+/* ---------- 3. CARTÕES ---------- */
+.card {
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio-card);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+/* ---------- 4. TELA DE LOGIN ---------- */
+.auth {
+  max-width: 420px;
+  margin: 8vh auto 0;
+  padding: 28px;
+  border-top: 4px solid var(--pinho);
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+/* Mensagem de erro/sucesso (o JS define a cor) */
+.msg {
+  min-height: 1.4em;
+  margin: 8px 0 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* ---------- 5. FORMULÁRIOS ---------- */
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+input,
+select {
+  width: 100%;
+  padding: 9px 11px;
+  font: inherit;
+  color: var(--tinta);
+  background: #fff;
+  border: 1px solid var(--linha-forte);
+  border-radius: var(--raio-campo);
+}
+
+input::placeholder {
+  color: #8a988f;
+}
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 3px solid rgba(45, 90, 68, 0.35);
+  outline-offset: 1px;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--pinho);
+}
+
+/* Grade do formulário de cadastro de ingredientes */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+/* Linhas com campos lado a lado (aba Produtos e Usuários) */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.row > div {
+  flex: 1 1 160px;
+}
+
+/* ---------- 6. BOTÕES ---------- */
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: 9px 16px;
+  color: #fff;
+  background: var(--pinho);
+  border: 1px solid var(--pinho);
+  border-radius: var(--raio-campo);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+button:hover {
+  background: var(--pinho-escuro);
+}
+
+/* Botão secundário (Sair, Excluir) */
+button.sec {
+  color: var(--pinho);
+  background: transparent;
+  border-color: var(--linha-forte);
+}
+
+button.sec:hover {
+  background: var(--pinho-claro);
+}
+
+/* Excluir dentro das tabelas */
+td button.sec {
+  color: var(--perigo);
+  border-color: #e3bcb8;
+}
+
+td button.sec:hover {
+  background: #fbeceb;
+}
+
+/* Botão com aparência de link (Criar uma conta) */
+button.link {
+  padding: 9px 4px;
+  color: var(--pinho);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+button.link:hover {
+  background: none;
+  color: var(--pinho-escuro);
+}
+
+/* ---------- 7. CABEÇALHO ---------- */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.top h1 {
+  margin-bottom: 2px;
+}
+
+/* ---------- 8. ABAS ---------- */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+}
+
+.tab-btn {
+  flex: 1 1 180px;
+  color: var(--tinta);
+  background: transparent;
+  border-color: transparent;
+}
+
+.tab-btn:hover {
+  background: var(--pinho-claro);
+}
+
+.tab-btn.active {
+  color: #fff;
+  background: var(--pinho);
+  border-color: var(--pinho);
+}
+
+/* ---------- 9. RESUMO E LEGENDA ---------- */
+#resumo {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+#resumo li {
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--fundo);
+  border-radius: var(--raio-campo);
+}
+
+#resumo strong {
+  font-size: 1.2rem;
+}
+
+#alertas ul {
+  list-style: none;
+  padding: 0;
+}
+
+#alertas li {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--fundo);
+  border-left: 4px solid var(--linha-forte);
+  border-radius: 4px;
+}
+
+/* ---------- 10. TABELAS ---------- */
+.scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--linha);
+  vertical-align: middle;
+}
+
+th {
+  font-size: 0.88rem;
+  color: var(--tinta-suave);
+  background: var(--fundo);
+  white-space: nowrap;
+}
+
+tbody tr:hover {
+  background: #f6f8f5;
+}
+
+/* Colunas numéricas alinhadas à direita */
+th.n,
+td.n {
+  text-align: right;
+}
+
+.vazio {
+  padding: 18px;
+  text-align: center;
+  color: var(--tinta-suave);
+}
+
+/* Botões Editar/Excluir lado a lado */
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/* Editar usa o verde do sistema (Excluir continua vermelho) */
+td button.sec.editar {
+  color: var(--pinho);
+  border-color: var(--linha-forte);
+}
+
+td button.sec.editar:hover {
+  background: var(--pinho-claro);
+}
+
+/* Linha que está sendo editada no momento */
+tbody tr.editando,
+tbody tr.editando:hover {
+  background: var(--pinho-claro);
+  box-shadow: inset 4px 0 0 var(--pinho);
+}
+
+/* ---------- 11. TELAS PEQUENAS ---------- */
+@media (max-width: 600px) {
+  #painel-principal {
+    padding: 12px 10px 32px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .auth {
+    margin-top: 4vh;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+}
+
+/* ---------- 12. ACESSIBILIDADE ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ---------- 13. IMPRESSÃO ---------- */
+/* Na tela, a área do relatório fica oculta */
+.relatorio-impressao {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 12mm;
+  }
+
+  /* Esconde o sistema inteiro e mostra só o relatório */
+  #painel-principal {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  .relatorio-impressao {
+    display: block;
+  }
+
+  .relatorio-impressao h1 {
+    font-size: 18pt;
+    margin-bottom: 6px;
+  }
+
+  .relatorio-impressao h2 {
+    font-size: 13pt;
+    margin: 18px 0 6px;
+  }
+
+  .relatorio-impressao table {
+    min-width: 0;
+    font-size: 9.5pt;
+    margin-bottom: 6px;
+  }
+
+  .relatorio-impressao th,
+  .relatorio-impressao td {
+    padding: 5px 7px;
+    border: 1px solid #999;
+  }
+
+  .relatorio-impressao th {
+    background: #e1ece4;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .relatorio-impressao thead {
+    display: table-header-group; /* repete o cabeçalho em cada página */
+  }
+
+  .relatorio-impressao tr {
+    break-inside: avoid;
+  }
+}

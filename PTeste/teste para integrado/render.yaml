@@ -1,0 +1,16 @@
+# render.yaml - "Blueprint" do Render: descreve o serviço para ele criar tudo sozinho.
+services:
+  - type: web                    # serviço web (recebe requisições HTTP)
+    name: sistema-despensa       # nome que aparece no painel (e na URL)
+    runtime: node                # ambiente Node.js
+    plan: free                   # plano gratuito
+    buildCommand: npm install    # roda no deploy: instala as dependências
+    startCommand: npm start      # roda para iniciar: executa "node server.js"
+    healthCheckPath: /health     # o Render consulta esta rota para saber se o app está vivo
+    envVars:
+      - key: NODE_VERSION        # versão do Node usada no Render
+        value: 20
+      - key: MONGO_URI           # você digita o valor no painel (contém a senha do banco)
+        sync: false
+      - key: JWT_SECRET          # o Render gera um valor aleatório automaticamente
+        generateValue: true
